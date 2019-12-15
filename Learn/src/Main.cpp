@@ -6,7 +6,7 @@
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow *window);
 void InitObject(unsigned int &VAO);
-void LoadTexture(const char*path, unsigned int &textureId);
+void LoadTexture(const char*path, unsigned int &textureId, bool);
 
 int main()
 {
@@ -35,12 +35,32 @@ int main()
 	glViewport(0, 0, 800, 600);
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
+
 	unsigned int VAO;
 	InitObject(VAO);
 	Shader ourShader("./shader/shader.vs", "./shader/shader.fs");
 
+	unsigned int texture2;
+	stbi_set_flip_vertically_on_load(true);
+	LoadTexture("./res/awesomeface.png", texture2, true);
+
 	unsigned int texture;
-	LoadTexture("./res/container.jpg", texture);
+	LoadTexture("./res/container.jpg", texture, false);
+
+
+	
+	ourShader.use();
+
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, texture);
+	glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_2D, texture2);
+
+	ourShader.setInt("ourTexture", 0);
+	ourShader.setInt("texture2", 1);
+
+	glBindVertexArray(VAO);
+
 	while (!glfwWindowShouldClose(window))
 	{
 		processInput(window);
@@ -48,9 +68,7 @@ int main()
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		ourShader.use();
-		glBindTexture(GL_TEXTURE_2D, texture);
-		glBindVertexArray(VAO);
+	
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
 		glfwSwapBuffers(window);
@@ -113,7 +131,7 @@ void InitObject( unsigned int &VAO)
 }
 
 
-void LoadTexture(const char*path, unsigned int &textureId)
+void LoadTexture(const char*path, unsigned int &textureId, bool alpha)
 {
 	glGenTextures(1, &textureId);
 	glBindTexture(GL_TEXTURE_2D, textureId);
@@ -127,7 +145,8 @@ void LoadTexture(const char*path, unsigned int &textureId)
 	unsigned char *data = stbi_load(path, &width, &height, &nrChannels, 0);
 	if (data)
 	{
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+		GLint format = alpha ? GL_RGBA : GL_RGB;
+		glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
 		glGenerateMipmap(GL_TEXTURE_2D);
 	}
 	else
