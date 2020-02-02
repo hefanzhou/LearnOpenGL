@@ -38,3 +38,4 @@
 *.ipch
 
 /.vs/*
+/x64/Debug/out.txt
