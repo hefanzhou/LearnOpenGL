@@ -1,11 +1,2 @@
-﻿  Camera.cpp
-  Main.cpp
-d:\work\opengl\project\learn\learn\src\main.cpp(112): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-d:\work\opengl\project\learn\learn\src\main.cpp(113): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-d:\work\opengl\project\learn\learn\src\main.cpp(270): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-d:\work\opengl\project\learn\learn\src\main.cpp(287): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-d:\work\opengl\project\learn\learn\src\main.cpp(288): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-d:\work\opengl\project\learn\learn\src\main.cpp(293): warning C4305: 'initializing': truncation from 'double' to 'float'
-d:\work\opengl\project\learn\learn\src\main.cpp(306): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-  Generating Code...
+﻿  LightMain.cpp
   Learn.vcxproj -> D:\Work\OpenGL\Project\Learn\x64\Debug\Learn.exe
