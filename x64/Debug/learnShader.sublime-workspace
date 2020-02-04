@@ -1,0 +1,493 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"ve",
+				"vertex"
+			],
+			[
+				"v",
+				"vertex"
+			],
+			[
+				"re",
+				"retColor"
+			],
+			[
+				"reu",
+				"returnColor"
+			],
+			[
+				"ha",
+				"half2"
+			],
+			[
+				"mo",
+				"motion"
+			],
+			[
+				"f",
+				"float4"
+			],
+			[
+				"pre",
+				"previousHPos"
+			],
+			[
+				"b",
+				"_BlurAmount"
+			],
+			[
+				"fl",
+				"float2"
+			],
+			[
+				"pr",
+				"previousPos"
+			],
+			[
+				"s",
+				"sampler2D"
+			],
+			[
+				"flo",
+				"float4"
+			],
+			[
+				"Ay",
+				"AsyncLoading"
+			],
+			[
+				"lu",
+				"luminanceValue"
+			],
+			[
+				"ver",
+				"vertex"
+			],
+			[
+				"fi",
+				"fixed4"
+			],
+			[
+				"sa",
+				"saberValue"
+			],
+			[
+				"to",
+				"totalY"
+			],
+			[
+				"co",
+				"color"
+			],
+			[
+				"t",
+				"totalX"
+			],
+			[
+				"_",
+				"_MainTex_TexelSize"
+			],
+			[
+				"no",
+				"normal"
+			],
+			[
+				"nor",
+				"normal"
+			],
+			[
+				"fr",
+				"frac"
+			],
+			[
+				"for",
+				"foreColor"
+			],
+			[
+				"fo",
+				"foreColor"
+			],
+			[
+				"_t",
+				"_TexFore"
+			],
+			[
+				"tex",
+				"tex2D"
+			],
+			[
+				"u",
+				"uv"
+			],
+			[
+				"_re",
+				"_RefractAmount"
+			],
+			[
+				"wo",
+				"worldRef"
+			],
+			[
+				"te",
+				"texCUBE"
+			],
+			[
+				"wor",
+				"worldNormal"
+			],
+			[
+				"fie",
+				"fixed4"
+			],
+			[
+				"ref",
+				"_RefractColor"
+			],
+			[
+				"wi",
+				"worldViewDir"
+			],
+			[
+				"Uni",
+				"UnityObjectToWorldNormal"
+			],
+			[
+				"Unity",
+				"UnityObjectToClipPos"
+			],
+			[
+				"fix",
+				"fixed4"
+			],
+			[
+				"nro",
+				"normalize"
+			],
+			[
+				"ma",
+				"max"
+			],
+			[
+				"st",
+				"saturate"
+			],
+			[
+				"r",
+				"rgb"
+			],
+			[
+				"do",
+				"dot"
+			],
+			[
+				"_N",
+				"_NormalScale"
+			],
+			[
+				"in",
+				"include"
+			],
+			[
+				"wol",
+				"worldNormal"
+			],
+			[
+				"c",
+				"col"
+			],
+			[
+				"t2",
+				"T2W01"
+			],
+			[
+				"floa",
+				"float3"
+			],
+			[
+				"worl",
+				"worldLight"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"ins",
+				"Install Package Control"
+			]
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 157.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader"
+	],
+	"file_history":
+	[
+		"/D/Work/OpenGL/Project/Learn/x64/Debug/out.txt",
+		"/D/Work/OpenGL/Project/Learn/.gitignore",
+		"/D/Work/OpenGL/Project/Learn/Learn.sln",
+		"/D/Work/OpenGL/Project/Learn/Learn/Learn.vcxproj",
+		"/D/Work/OpenGL/Project/Learn/Learn/out.txt",
+		"/D/Work/OpenGL/Project/Learn/Learn/x64/Debug/Learn.log",
+		"/C/Users/zhouhefan/Downloads/Unity_Shaders_Book-master/Logs/Packages-Update.log",
+		"/D/Program Files/Epic Games/UE_4.21/Engine/Build/BatchFiles/RunUAT.bat",
+		"/C/Users/zhouhefan/Desktop/加载not",
+		"/D/Work/UnityProject/LrarnPBR/Assets/Scenes/TestShader/NewUnlitShader.shader",
+		"/C/Users/zhouhefan/Desktop/te.reg",
+		"/D/Work/UEProject/Test1/Saved/Cooked/WindowsNoEditor/Test1/Metadata/CookedIniVersion.txt",
+		"/D/Work/UnityProject/LrarnPBR/Assets/Scenes/AnimationShader/ScrollBackground.shader",
+		"/C/Program Files/Unity/Hub/Editor/2018.3.5f1/Editor/Data/CGIncludes/HLSLSupport.cginc",
+		"/D/Work/UnityProject/builtin_shaders-2018.3.14f1/CGIncludes/UnityCG.cginc",
+		"/D/Work/UnityProject/builtin_shaders-2018.3.14f1/DefaultResourcesExtra/Internal-DepthNormalsTexture.shader",
+		"/D/Work/UnityProject/builtin_shaders-2018.3.14f1/CGIncludes/UnityShaderVariables.cginc",
+		"/D/Work/UnityProject/builtin_shaders-2018.3.14f1/CGIncludes/UnityLightingCommon.cginc",
+		"/D/Work/UnityProject/LrarnPBR/Assets/Scenes/Learn1/BaseLightModel.shader",
+		"/D/Work/UnityProject/builtin_shaders-2018.3.14f1/DefaultResourcesExtra/TerrainShaders/Details/VertexLit.shader",
+		"/D/Work/UnityProject/builtin_shaders-2018.3.14f1/DefaultResourcesExtra/AlphaTest-VertexLit.shader",
+		"/D/Work/UnityProject/LrarnPBR/Assets/Scenes/TestShader/PisxelPosShader.shader",
+		"/D/Work/UnityProject/LrarnPBR/Assets/Scenes/TestShader/ShowUV.shader",
+		"/D/Work/UnityProject/LrarnPBR/Assets/Scenes/TestShader/Ramp.shader",
+		"/D/Work/UnityProject/LrarnPBR/Assets/Scenes/Transparent/Cutoff.shader",
+		"/D/Work/UnityProject/LrarnPBR/Assets/Scenes/Transparent/Transparent.shader",
+		"/D/Work/UnityProject/LrarnPBR/Assets/Scenes/Transparent/DoubleTransparent.shader",
+		"/D/Work/UnityProject/LrarnPBR/Assets/Scenes/Light/Light.shader",
+		"/C/Users/zhouhefan/Downloads/Unity_Shaders_Book-master/Assets/Shaders/Chapter9/Chapter9-ForwardRendering.shader",
+		"/D/Work/UnityProject/builtin_shaders-2018.3.14f1/CGIncludes/AutoLight.cginc",
+		"/D/Work/UnityProject/LrarnPBR/Assets/Scenes/TestShader/HalfLambertBinn-Phong.shader",
+		"/C/Users/zhouhefan/Downloads/Unity_Shaders_Book-master/Assets/Shaders/Chapter6/Chapter6-BlinnPhong.shader",
+		"/D/Work/UnityProject/builtin_shaders-2018.3.14f1/DefaultResourcesExtra/Normal-Bumped.shader",
+		"/D/Work/UnityProject/builtin_shaders-2018.3.14f1/CGIncludes/SpeedTreeCommon.cginc",
+		"/D/Work/UnityProject/LrarnPBR/Assets/Scenes/Learn1/TestReplace.shader",
+		"/D/Work/UnityProject/LrarnPBR/Assets/Scenes/Learn1/TestBeReplace.shader",
+		"/D/Work/UnityProject/LrarnPBR/Assets/Scenes/Learn1/Deferred_Forward.shader",
+		"/D/Work/UnityProject/builtin_shaders-2018.3.14f1/DefaultResourcesExtra/Standard.shader",
+		"/D/Work/UnityProject/builtin_shaders-2018.3.14f1/CGIncludes/UnityStandardCore.cginc",
+		"/D/Work/UnityProject/builtin_shaders-2018.3.14f1/CGIncludes/UnityBuiltin3xTreeLibrary.cginc",
+		"/D/Work/UnityProject/builtin_shaders-2018.3.14f1/CGIncludes/TerrainSplatmapCommon.cginc",
+		"/D/Work/UnityProject/builtin_shaders-2018.3.14f1/CGIncludes/UnityInstancing.cginc",
+		"/C/Program Files/Unity/Hub/Editor/2018.3.5f1/Editor/Data/CGIncludes/UnityShaderVariables.cginc",
+		"/D/Work/UnityProject/builtin_shaders-2018.3.14f1/DefaultResourcesExtra/Normal-VertexLit.shader",
+		"/C/Program Files/Unity/Hub/Editor/2018.3.5f1/Editor/Data/CGIncludes/UnityStandardParticles.cginc",
+		"/C/Program Files/Unity/Hub/Editor/2018.3.5f1/Editor/Data/CGIncludes/AutoLight.cginc",
+		"/D/Work/UnityProject/LrarnPBR/Assets/Scenes/TestShader/OldShcoolShdate.shader",
+		"/C/Windows/System32/drivers/etc/hosts",
+		"/C/Program Files/Unity/Hub/Editor/2018.3.5f1/Editor/Data/CGIncludes/UnityCG.cginc",
+		"/D/Work/Doc/Temp.cpp",
+		"/C/Users/zhouhefan/Downloads/WonderLocal/config/render/shader/shader_libs.json",
+		"/C/Users/zhouhefan/Downloads/WonderLocal/config/render/shader/shaders.json",
+		"/C/Users/zhouhefan/Desktop/TestCrash.cpp",
+		"/C/Users/zhouhefan/Downloads/WonderLocal/wd.js",
+		"/D/Work/UEProject/Test1/Test1.uproject"
+	],
+	"find":
+	{
+		"height": 40.0
+	},
+	"find_in_files":
+	{
+		"height": 104.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"folders":
+	[
+		{
+			"path": "D:\\Work\\OpenGL\\Project\\Learn\\x64\\Debug\\shader"
+		}
+	],
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 28.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "",
+	"replace":
+	{
+		"height": 52.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"",
+				"D:\\Work\\UnityProject\\LrarnPBR\\Assets\\Scenes\\CubeMap\\CubeMapReflect.shader"
+			],
+			[
+				"UnityStandardConfig",
+				"builtin_shaders-2018.3.14f1\\CGIncludes\\UnityStandardConfig.cginc"
+			],
+			[
+				"UnityStandardCoreForward",
+				"builtin_shaders-2018.3.14f1\\CGIncludes\\UnityStandardCoreForward.cginc"
+			],
+			[
+				"stand",
+				"builtin_shaders-2018.3.14f1\\DefaultResourcesExtra\\Standard.shader"
+			],
+			[
+				"vertex",
+				"builtin_shaders-2018.3.14f1\\DefaultResourcesExtra\\AlphaTest-VertexLit.shader"
+			],
+			[
+				"VertexLit",
+				"builtin_shaders-2018.3.14f1\\DefaultResourcesExtra\\Alpha-VertexLit.shader"
+			],
+			[
+				"ve",
+				"builtin_shaders-2018.3.14f1\\DefaultResourcesExtra\\TerrainShaders\\Details\\VertexLit.shader"
+			],
+			[
+				"auto",
+				"builtin_shaders-2018.3.14f1\\CGIncludes\\AutoLight.cginc"
+			],
+			[
+				"vertix",
+				"builtin_shaders-2018.3.14f1\\DefaultResourcesExtra\\TerrainShaders\\Details\\VertexLit.shader"
+			],
+			[
+				"bump",
+				"DefaultResourcesExtra\\Normal-Bumped.shader"
+			],
+			[
+				"depthnor",
+				"DefaultResourcesExtra\\Internal-DepthNormalsTexture.shader"
+			],
+			[
+				"normalv",
+				"DefaultResourcesExtra\\Normal-VertexLit.shader"
+			],
+			[
+				"cg",
+				"UnityCG.cginc"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 283.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
