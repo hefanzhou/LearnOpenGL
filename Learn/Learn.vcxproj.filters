@@ -19,6 +19,8 @@
     <ClCompile Include="src\LightMain.cpp" />
     <ClCompile Include="src\Entry.cpp" />
     <ClCompile Include="src\FirstMain.cpp" />
+    <ClCompile Include="src\Mesh.cpp" />
+    <ClCompile Include="src\ModelMain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\glad\glad.h">
@@ -475,6 +477,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\LightMain.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Mesh.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ModelMain.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
