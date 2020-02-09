@@ -10,6 +10,7 @@
 #include "Texture.h"
 #include "Mesh.h"
 #include "Model.h"
+#include "Utility.h"
 
 namespace ModelMain
 {
@@ -18,7 +19,6 @@ namespace ModelMain
 	void UpdateTime();
 	void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 	void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
-	bool CheckError();
 	void InitLightObject(unsigned int &VAO);
 
 	Camera *camera = nullptr;
@@ -60,35 +60,40 @@ namespace ModelMain
 		glfwSetCursorPosCallback(window, mouse_callback);
 		glfwSetScrollCallback(window, scroll_callback);
 
-		Shader CubeShader("./shader/Model/shader.vs", "./shader/Model/shader.fs");
+		Shader CubeShader("./shader/Model/CubeShader.vs", "./shader/Model/CubeShader.fs");
 		Texture texureSpecular("./res/container2_specular.png", true);
 		Texture texureDiffuse("./res/container2.png", true);
-
-
 		Shader LightShader("./shader/Model/LightShader.vs", "./shader/Model/LightShader.fs");
 
 		glm::vec3 lightCenter(5.0f, 0.0f, 5.0f);
 		glm::vec3 lightColor(1.0f, 1.0f, 1.0f);
-
 		camera = new Camera(glm::vec3(0, 0, 20), 180, 0, 45.0f, (float)screenWidth / screenHeight);
+		
 		glEnable(GL_DEPTH_TEST);
-		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+		glDepthFunc(GL_LESS);
+		glEnable(GL_STENCIL_TEST);
+		glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
 		
 		
+		auto cubeMesh = GetCubeMesh();
 		std::cout.flush();
-		unsigned int lightVAO;
-		InitLightObject(lightVAO);
-		Model model("./res/model/nanosuit/nanosuit.obj");
+		
+		//Model model("./res/model/nanosuit/nanosuit.obj");
+		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		while (!glfwWindowShouldClose(window))
 		{
 			UpdateTime();
 			processInput(window);
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
+			glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+			glClearStencil(0);
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT); // don't forget to clear the stencil buffer!
 			glm::mat4 PVTrans = camera->GetPVMatrix();
 			glm::vec3 lightPos;
 			{
 				LightShader.use();
+				glStencilMask(0x00);
+				glStencilFunc(GL_NOTEQUAL, 1, 0xFF);
+
 				glm::mat4 modelTrans;
 				modelTrans = glm::translate(modelTrans, lightCenter);
 				//modelTrans = glm::scale(modelTrans, glm::vec3(0.2f, 0.2f, 0.2f));
@@ -102,16 +107,19 @@ namespace ModelMain
 				unsigned int lightColorID = glGetUniformLocation(LightShader.ID, "lightColor");
 				glUniform3f(lightColorID, lightColor.r, lightColor.g, lightColor.b);
 
-				glBindVertexArray(lightVAO);
-				glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+				cubeMesh->Draw(LightShader);
 			}
 
 			{
+				glClear(GL_STENCIL_BUFFER_BIT);
+
 				CubeShader.use();
+				glStencilMask(0xFF);
+				glStencilFunc(GL_ALWAYS, 1, 0xFF);
 
 				glm::mat4 modelTrans;
 				modelTrans = glm::translate(modelTrans, glm::vec3(0.0f, -7.0f, 0.0f));
-				modelTrans = glm::rotate(modelTrans, lastFrame, glm::vec3(0, 1, 0));
+				//modelTrans = glm::rotate(modelTrans, lastFrame, glm::vec3(0, 1, 0));
 				unsigned int transformLoc = glGetUniformLocation(CubeShader.ID, "transformMVP");
 				auto transformMVP = PVTrans * modelTrans;
 				glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(transformMVP));
@@ -128,8 +136,29 @@ namespace ModelMain
 				uniformLocation = glGetUniformLocation(CubeShader.ID, "viewPos");
 				glUniform3f(uniformLocation, camera->Position.x, camera->Position.y, camera->Position.z);
 
-				model.Draw(CubeShader);
+				cubeMesh->Draw(CubeShader);
+
+				//外轮廓
+				{
+					LightShader.use();
+
+					glStencilMask(0x00);
+					glDisable(GL_DEPTH_TEST);
+					glStencilFunc(GL_NOTEQUAL, 1, 0xFF);
+
+					unsigned int transformLoc = glGetUniformLocation(LightShader.ID, "transformMVP");
+					modelTrans = glm::scale(modelTrans, glm::vec3(1.1f, 1.1f, 1.1f));
+					auto transformMVP = PVTrans * modelTrans;
+					glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(transformMVP));
+					unsigned int lightColorID = glGetUniformLocation(LightShader.ID, "lightColor");
+					glUniform3f(lightColorID, lightColor.r, lightColor.g, lightColor.b);
+					cubeMesh->Draw(LightShader);
+
+					glEnable(GL_DEPTH_TEST);
+				}
 			}
+
+			
 
 			glfwSwapBuffers(window);
 			glfwPollEvents();
@@ -206,86 +235,5 @@ namespace ModelMain
 	void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 	{
 		camera->ProcessMouseScroll((float)yoffset);
-	}
-
-	bool CheckError()
-	{
-		bool result = false;
-		for (GLenum err; (err = glGetError()) != GL_NO_ERROR;)
-		{
-			result = true;
-			COUT << "Error:" << err << std::endl;
-		}
-		std::cout.flush();
-		return result;
-	}
-
-	void InitLightObject(unsigned int &VAO)
-	{
-		//顶点
-		glGenVertexArrays(1, &VAO);
-		glBindVertexArray(VAO);
-
-		unsigned int VBO;
-		glGenBuffers(1, &VBO);
-
-		glBindBuffer(GL_ARRAY_BUFFER, VBO);
-		float vertices[] = {
-			-0.5f, -0.5f, -0.5f,
-			 0.5f, -0.5f, -0.5f,
-			 0.5f,  0.5f, -0.5f,
-			 0.5f,  0.5f, -0.5f,
-			-0.5f,  0.5f, -0.5f,
-			-0.5f, -0.5f, -0.5f,
-
-			-0.5f, -0.5f,  0.5f,
-			 0.5f, -0.5f,  0.5f,
-			 0.5f,  0.5f,  0.5f,
-			 0.5f,  0.5f,  0.5f,
-			-0.5f,  0.5f,  0.5f,
-			-0.5f, -0.5f,  0.5f,
-
-			-0.5f,  0.5f,  0.5f,
-			-0.5f,  0.5f, -0.5f,
-			-0.5f, -0.5f, -0.5f,
-			-0.5f, -0.5f, -0.5f,
-			-0.5f, -0.5f,  0.5f,
-			-0.5f,  0.5f,  0.5f,
-
-			 0.5f,  0.5f,  0.5f,
-			 0.5f,  0.5f, -0.5f,
-			 0.5f, -0.5f, -0.5f,
-			 0.5f, -0.5f, -0.5f,
-			 0.5f, -0.5f,  0.5f,
-			 0.5f,  0.5f,  0.5f,
-
-			-0.5f, -0.5f, -0.5f,
-			 0.5f, -0.5f, -0.5f,
-			 0.5f, -0.5f,  0.5f,
-			 0.5f, -0.5f,  0.5f,
-			-0.5f, -0.5f,  0.5f,
-			-0.5f, -0.5f, -0.5f,
-
-			-0.5f,  0.5f, -0.5f,
-			 0.5f,  0.5f, -0.5f,
-			 0.5f,  0.5f,  0.5f,
-			 0.5f,  0.5f,  0.5f,
-			-0.5f,  0.5f,  0.5f,
-			-0.5f,  0.5f, -0.5f
-		};
-		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-		glEnableVertexAttribArray(0);
-
-		unsigned int indices[] = { // 注意索引从0开始! 
-		0,1,2,3,4,5,6,7,8,9,
-		10,11,12,13,14,15,16,17,18,19,
-		20,21,22,23,24,25,26,27,28,29,
-		30,31,32,33,34,35
-		};
-		unsigned int EBO;
-		glGenBuffers(1, &EBO);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 	}
 }

@@ -32,6 +32,7 @@
     <ClCompile Include="src\stb_image.cpp" />
     <ClCompile Include="src\Texture.cpp" />
     <ClCompile Include="src\Utility.cpp" />
+    <ClCompile Include="src\Test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Model.h" />
@@ -191,6 +192,7 @@
     <ClInclude Include="src\stb_image.h" />
     <ClInclude Include="src\Texture.h" />
     <ClInclude Include="src\Utility.h" />
+    <ClInclude Include="src\Test.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\glm\detail\func_common.inl" />

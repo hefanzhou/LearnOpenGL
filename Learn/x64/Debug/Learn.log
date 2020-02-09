@@ -1,2 +1,11 @@
-﻿  ModelMain.cpp
+﻿  Test.cpp
+d:\work\opengl\project\learn\learn\src\test.cpp(179): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+d:\work\opengl\project\learn\learn\src\test.cpp(231): warning C4305: 'initializing': truncation from 'double' to 'float'
+d:\work\opengl\project\learn\learn\src\test.cpp(297): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+d:\work\opengl\project\learn\learn\src\test.cpp(298): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+d:\work\opengl\project\learn\learn\src\test.cpp(302): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+d:\work\opengl\project\learn\learn\src\test.cpp(303): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+d:\work\opengl\project\learn\learn\src\test.cpp(305): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+d:\work\opengl\project\learn\learn\src\test.cpp(306): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+d:\work\opengl\project\learn\learn\src\test.cpp(315): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
   Learn.vcxproj -> D:\Work\OpenGL\Project\Learn\x64\Debug\Learn.exe
