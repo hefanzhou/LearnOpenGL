@@ -1,8 +1,5 @@
 #pragma once
-class ModelMain
+namespace ModelMain
 {
-public:
-	ModelMain();
-	~ModelMain();
-};
-
+	int main();
+}
