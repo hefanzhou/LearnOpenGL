@@ -12,7 +12,7 @@
 #include "Model.h"
 #include "Utility.h"
 
-namespace ModelMain
+namespace BlendMain
 {
 	void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 	void processInput(GLFWwindow *window);
@@ -24,7 +24,7 @@ namespace ModelMain
 	float deltaTime = 0.0f; // 当前帧与上一帧的时间差
 	float lastFrame = 0.0f; // 上一帧的时间
 	float pai = 3.14159f / 2.0f;
-	
+
 	int main()
 	{
 		// 初始化
@@ -59,83 +59,42 @@ namespace ModelMain
 		glfwSetCursorPosCallback(window, mouse_callback);
 		glfwSetScrollCallback(window, scroll_callback);
 
-		Shader CubeShader("./shader/Model/shader.vs", "./shader/Model/shader.fs");
-		Texture texureSpecular("./res/container2_specular.png", true);
-		Texture texureDiffuse("./res/container2.png", true);
-		Shader LightShader("./shader/Model/LightShader.vs", "./shader/Model/LightShader.fs");
-		Shader EadgeShader("./shader/Model/EadgeShader.vs", "./shader/Model/EadgeShader.fs");
-		glm::vec3 lightCenter(5.0f, 0.0f, 5.0f);
-		glm::vec3 lightColor(1.0f, 1.0f, 1.0f);
-		camera = new Camera(glm::vec3(0, 0, 20), 180, 0, 45.0f, (float)screenWidth / screenHeight);
-		
+		Shader ColorShader("./shader/Blend/SimpleColorShader.vs", "./shader/Blend/SimpleColorShader.fs");
+		camera = new Camera(glm::vec3(0, 0, -10), 0, 0, 45.0f, (float)screenWidth / screenHeight);
+
 		glEnable(GL_DEPTH_TEST);
 		glDepthFunc(GL_LESS);
-		glEnable(GL_STENCIL_TEST);
-		glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
-		
-		
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+
 		auto cubeMesh = GetCubeMesh();
 		std::cout.flush();
-		
-		//Model model("./res/model/nanosuit/nanosuit.obj");
-		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
 		while (!glfwWindowShouldClose(window))
 		{
 			UpdateTime();
 			processInput(window);
 			glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-			glClearStencil(0);
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT); // don't forget to clear the stencil buffer!
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // don't forget to clear the stencil buffer!
 			glm::mat4 PVTrans = camera->GetPVMatrix();
-			glm::vec3 lightPos;
-			{
-				LightShader.use();
-				glStencilMask(0x00);
-				glStencilFunc(GL_NOTEQUAL, 1, 0xFF);
-
-				glm::mat4 modelTrans;
-				modelTrans = glm::translate(modelTrans, lightCenter);
-				lightPos = modelTrans * glm::vec4(0, 0, 0, 1);
-				auto transformMVP = PVTrans * modelTrans;
-				LightShader.SetMatrix("transformMVP", transformMVP);
-				LightShader.SetVec3("lightColor", lightColor);
-				cubeMesh->Draw(LightShader);
-			}
-
-			{
-				CubeShader.use();
-				glStencilMask(0xFF);
-				glStencilFunc(GL_ALWAYS, 1, 0xFF);
-
-				glm::mat4 modelTrans;
-				modelTrans = glm::translate(modelTrans, glm::vec3(0.0f, 0.0f, 0.0f));
-				modelTrans = glm::rotate(modelTrans, lastFrame, glm::vec3(0, 1, 0));
-				auto transformMVP = PVTrans * modelTrans;
-				CubeShader.SetMatrix("transformMVP", transformMVP);
-				CubeShader.SetMatrix("transformM", modelTrans);
-				CubeShader.SetVec3("lightPos", lightPos);
-				CubeShader.SetVec3("lightColor", lightColor);
-				CubeShader.SetVec3("viewPos", camera->Position);
-				cubeMesh->Draw(CubeShader);
-
-				//外轮廓
-				{
-					EadgeShader.use();
-
-					glStencilMask(0x00);
-					glDisable(GL_DEPTH_TEST);
-					glStencilFunc(GL_NOTEQUAL, 1, 0xFF);
-
-					EadgeShader.SetMatrix("transformMVP", transformMVP);
-					EadgeShader.SetMatrix("transformM", modelTrans);
-					cubeMesh->Draw(EadgeShader);
-
-					glEnable(GL_DEPTH_TEST);
-					glStencilMask(0xFF);
-				}
-			}
-
 			
+			ColorShader.use();
+			glm::mat4 modelTrans;
+			modelTrans = glm::translate(modelTrans, glm::vec3(0.0f, 0.0f, 2.0f));
+			auto transformMVP = PVTrans * modelTrans;
+			ColorShader.SetMatrix("transformMVP", transformMVP);
+			ColorShader.SetMatrix("transformM", modelTrans);
+			ColorShader.SetVec4("diffuseColor", glm::vec4(1, 0, 0, 0.5));
+			cubeMesh->Draw(ColorShader);
+
+			glm::mat4 modelTrans2;
+			modelTrans2 = glm::translate(modelTrans2, glm::vec3(0.0f, 0.0f, 0.0f));
+			ColorShader.SetMatrix("transformMVP", PVTrans * modelTrans2);
+			ColorShader.SetMatrix("transformM", modelTrans2);
+			ColorShader.SetVec4("diffuseColor", glm::vec4(0, 1, 0, 0.2));
+
+			cubeMesh->Draw(ColorShader);
 
 			glfwSwapBuffers(window);
 			glfwPollEvents();

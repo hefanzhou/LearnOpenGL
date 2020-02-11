@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\BlendMain.cpp" />
     <ClCompile Include="src\Model.cpp" />
     <ClCompile Include="src\Mesh.cpp" />
     <ClCompile Include="src\ModelMain.cpp" />
@@ -35,6 +36,7 @@
     <ClCompile Include="src\Test.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\BlendMain.h" />
     <ClInclude Include="src\Model.h" />
     <ClInclude Include="src\Mesh.h" />
     <ClInclude Include="src\ModelMain.h" />

@@ -2,9 +2,9 @@
 #include "LightMain.h"
 #include "ModelMain.h"
 #include "Test.h"
-
+#include "BlendMain.h"
 int main()
 {
-	ModelMain::main();
+	BlendMain::main();
 	return 0;
 }

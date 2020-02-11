@@ -25,6 +25,7 @@
     <ClCompile Include="src\Model.cpp" />
     <ClCompile Include="src\Utility.cpp" />
     <ClCompile Include="src\Test.cpp" />
+    <ClCompile Include="src\BlendMain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\glad\glad.h">
@@ -499,6 +500,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Test.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BlendMain.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
