@@ -118,7 +118,7 @@ vector<TextureSlot> Model::loadMaterialTextures(aiMaterial * mat, aiTextureType 
 		{   // 如果纹理还没有被加载，则加载它
 			TextureSlot texture;
 			texture.id = TextureFromFile(str.C_Str(), directory);
-			texture.type = typeName;
+			texture.name = typeName+std::to_string(i);
 			texture.path = str.C_Str();
 			textures.push_back(texture);
 			textures_loaded.push_back(texture); // 添加到已加载的纹理中

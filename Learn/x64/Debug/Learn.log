@@ -1,2 +1,14 @@
-﻿  BlendMain.cpp
+﻿  FrameBufferMain.cpp
+d:\windows kits\10\include\10.0.17763.0\shared\minwindef.h(130): warning C4005: 'APIENTRY': macro redefinition
+  d:\work\opengl\project\learn\learn\src\glad\glad.h(32): note: see previous definition of 'APIENTRY'
+d:\work\opengl\project\learn\learn\src\framebuffermain.cpp(229): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+d:\work\opengl\project\learn\learn\src\framebuffermain.cpp(230): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
   Learn.vcxproj -> D:\Work\OpenGL\Project\Learn\x64\Debug\Learn.exe

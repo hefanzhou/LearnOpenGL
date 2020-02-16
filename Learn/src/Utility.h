@@ -7,3 +7,5 @@
 
 bool CheckError(std::string info = "");
 shared_ptr<Mesh> GetCubeMesh();
+Mesh GetPlanMesh(int sizex, int sizez, int gridCountX, int gridCountZ);
+Mesh GetScreenMesh();

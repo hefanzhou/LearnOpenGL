@@ -3,8 +3,9 @@
 #include "ModelMain.h"
 #include "Test.h"
 #include "BlendMain.h"
+#include "FrameBufferMain.h"
 int main()
 {
-	BlendMain::main();
+	FrameBufferMain::main();
 	return 0;
 }

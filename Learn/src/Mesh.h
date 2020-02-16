@@ -15,8 +15,10 @@ struct Vertex {
 };
 
 struct TextureSlot {
+	TextureSlot() {};
+	TextureSlot(unsigned int _id, const string& _name):id(_id), name(_name) {};
 	unsigned int id;
-	string type;
+	string name;
 	aiString path;
 };
 class Mesh
@@ -26,6 +28,14 @@ public:
 	Mesh(vector<Vertex> vertices, vector<unsigned int> indices, vector<TextureSlot> textures);
 	void Draw(Shader shader);
 	Mesh() = delete;
+
+	void SetTexture(int index, const TextureSlot &slot)
+	{
+		if (textures.size() < index + 1)
+			textures.resize(index + 1);
+
+		textures[index] = slot;
+	}
 private:
 	unsigned int VAO, VBO, EBO;
 

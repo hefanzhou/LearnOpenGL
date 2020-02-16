@@ -81,7 +81,7 @@ namespace BlendMain
 			
 			ColorShader.use();
 			glm::mat4 modelTrans;
-			modelTrans = glm::translate(modelTrans, glm::vec3(0.0f, 0.0f, 2.0f));
+			modelTrans = glm::translate(modelTrans, glm::vec3(0.0f, 0.0f, -2.0f));
 			auto transformMVP = PVTrans * modelTrans;
 			ColorShader.SetMatrix("transformMVP", transformMVP);
 			ColorShader.SetMatrix("transformM", modelTrans);

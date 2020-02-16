@@ -111,7 +111,20 @@ void Shader::SetVec3(const std::string & name, glm::vec3 value) const
 	glUniform3f(glGetUniformLocation(ID, name.c_str()), value.x, value.y, value.z);
 }
 
+void Shader::SetVec2(const std::string & name, glm::vec2 value) const
+{
+	glUniform2f(glGetUniformLocation(ID, name.c_str()), value.x, value.y);
+}
+
 void Shader::SetVec4(const std::string & name, glm::vec4 value) const
 {
 	glUniform4f(glGetUniformLocation(ID, name.c_str()), value.x, value.y, value.z, value.w);
+}
+
+void Shader::SetTexture(int index, const std::string & name, unsigned int textureID)
+{
+	glActiveTexture(GL_TEXTURE0 + index);
+	setInt(name.c_str(), index);
+	glBindTexture(GL_TEXTURE_2D, textureID);
+	glActiveTexture(GL_TEXTURE0);
 }
