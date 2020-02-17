@@ -4,8 +4,9 @@
 #include "Test.h"
 #include "BlendMain.h"
 #include "FrameBufferMain.h"
+#include "MainCube.h"
 int main()
 {
-	FrameBufferMain::main();
+	MainCubeMap::main();
 	return 0;
 }

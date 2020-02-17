@@ -4,6 +4,14 @@
 		"selected_items":
 		[
 			[
+				"ve",
+				"vec3"
+			],
+			[
+				"v",
+				"vec3"
+			],
+			[
 				"de",
 				"DecodeHight"
 			],
@@ -16,10 +24,6 @@
 				"vec4"
 			],
 			[
-				"ve",
-				"vec2"
-			],
-			[
 				"no",
 				"Normal"
 			],
@@ -30,10 +34,6 @@
 			[
 				"tran",
 				"transformM"
-			],
-			[
-				"v",
-				"vertex"
 			],
 			[
 				"reu",
@@ -228,54 +228,36 @@
 	"buffers":
 	[
 		{
-			"file": "shader/FrameBuffer/TextureShader.fs",
-			"settings":
-			{
-				"buffer_size": 245,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "shader/FrameBuffer/ScreenShader.vs",
-			"settings":
-			{
-				"buffer_size": 248,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "shader/FrameBuffer/RippleShader.vs",
-			"settings":
-			{
-				"buffer_size": 248,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "shader/FrameBuffer/RippleShader.fs",
-			"settings":
-			{
-				"buffer_size": 1528,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
 			"file": "out.txt",
 			"settings":
 			{
-				"buffer_size": 242,
+				"buffer_size": 0,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "shader/FrameBuffer/ScreenShader.fs",
+			"file": "shader/CubeMap/CubeMap.fs",
 			"settings":
 			{
-				"buffer_size": 272,
+				"buffer_size": 214,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "shader/CubeMap/CubeMap.vs",
+			"settings":
+			{
+				"buffer_size": 320,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "shader/FrameBuffer/TextureShader.vs",
+			"settings":
+			{
+				"buffer_size": 455,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -319,17 +301,22 @@
 	[
 		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader",
 		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/Blend",
+		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/CubeMap",
 		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/FrameBuffer",
 		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/Light",
 		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/Model"
 	],
 	"file_history":
 	[
-		"/C/Users/zhouhefan/Downloads/Ripple-Effect-Simulation-master/src/main.cpp",
-		"/D/Work/OpenGL/Project/Learn/x64/Debug/out.txt",
-		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/FrameBuffer/SimpleColorShader.fs",
+		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/FrameBuffer/TextureShader.fs",
+		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/FrameBuffer/ScreenShader.vs",
 		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/FrameBuffer/RippleShader.vs",
+		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/FrameBuffer/ScreenShader.fs",
 		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/FrameBuffer/RippleShader.fs",
+		"/D/Program Files/setuna截图小利器/SetunaConfig.xml",
+		"/D/Work/OpenGL/Project/Learn/x64/Debug/out.txt",
+		"/C/Users/zhouhefan/Downloads/Ripple-Effect-Simulation-master/src/main.cpp",
+		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/FrameBuffer/SimpleColorShader.fs",
 		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/Blend/SimpleColorShader.vs",
 		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/Blend/SimpleColorShader.fs",
 		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/Model/shader.fs",
@@ -401,7 +388,7 @@
 	],
 	"find":
 	{
-		"height": 40.0
+		"height": 27.0
 	},
 	"find_in_files":
 	{
@@ -415,6 +402,9 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"float4",
+			"EncodeHeight",
+			"float2",
 			"DecodeHight",
 			"EncodeHight",
 			"fragCoord",
@@ -450,130 +440,16 @@
 	"groups":
 	[
 		{
-			"selected": 3,
+			"selected": 2,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "shader/FrameBuffer/TextureShader.fs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 245,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								205,
-								205
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "shader/FrameBuffer/ScreenShader.vs",
-					"semi_transient": true,
-					"settings":
-					{
-						"buffer_size": 248,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "shader/FrameBuffer/RippleShader.vs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 248,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								154,
-								154
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "shader/FrameBuffer/RippleShader.fs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1528,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								288,
-								288
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.sublime-syntax",
-							"tab_size": 3,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
 					"file": "out.txt",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 242,
+						"buffer_size": 0,
 						"regions":
 						{
 						},
@@ -592,37 +468,91 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
-					"buffer": 5,
-					"file": "shader/FrameBuffer/ScreenShader.fs",
+					"buffer": 1,
+					"file": "shader/CubeMap/CubeMap.fs",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 272,
+						"buffer_size": 214,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								272,
-								272
+								214,
+								214
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/C++/C++.sublime-syntax",
-							"tab_size": 3,
-							"translate_tabs_to_spaces": true
+							"syntax": "Packages/C++/C++.sublime-syntax"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "shader/CubeMap/CubeMap.vs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 320,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								320,
+								320
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "shader/FrameBuffer/TextureShader.vs",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 455,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
 					"type": "text"
 				}
 			]

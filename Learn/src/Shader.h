@@ -22,5 +22,5 @@ public:
 	void SetVec3(const std::string &name, glm::vec3 value) const;
 	void SetVec2(const std::string &name, glm::vec2 value) const;
 	void SetVec4(const std::string &name, glm::vec4 value) const;
-	void SetTexture(int index, const std::string &name, unsigned int textureID);
+	void SetTexture(int index, const std::string &name, unsigned int textureID, unsigned int textureSlotType = GL_TEXTURE_2D);
 };

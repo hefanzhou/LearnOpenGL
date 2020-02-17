@@ -71,9 +71,9 @@ void main()
       d = smoothstep(10.5,.5,length(ripplePos.xy - fragPos.xy))*5;
    }
    
-   float k1 = 0;
-   float k2 = -1;
-   float k3 = 0.5;
+   float k1 = 1.605124;
+   float k2 = -0.9970044;
+   float k3 = 0.09797002;
 
    // The actual propagation:
    d += k1*p00 + k2*p11 + k3*(p01 + p21 + p10 + p12);
