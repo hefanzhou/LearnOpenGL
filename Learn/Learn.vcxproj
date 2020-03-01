@@ -19,9 +19,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\MainGeometryShader.cpp" />
     <ClCompile Include="src\BlendMain.cpp" />
     <ClCompile Include="src\FrameBufferMain.cpp" />
     <ClCompile Include="src\MainCube.cpp" />
+    <ClCompile Include="src\MainInstanceDraw.cpp" />
     <ClCompile Include="src\Model.cpp" />
     <ClCompile Include="src\Mesh.cpp" />
     <ClCompile Include="src\ModelMain.cpp" />
@@ -38,9 +40,11 @@
     <ClCompile Include="src\Test.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\MainGeometryShader.h" />
     <ClInclude Include="src\BlendMain.h" />
     <ClInclude Include="src\FrameBufferMain.h" />
     <ClInclude Include="src\MainCube.h" />
+    <ClInclude Include="src\MainInstanceDraw.h" />
     <ClInclude Include="src\Model.h" />
     <ClInclude Include="src\Mesh.h" />
     <ClInclude Include="src\ModelMain.h" />

@@ -28,6 +28,8 @@
     <ClCompile Include="src\BlendMain.cpp" />
     <ClCompile Include="src\FrameBufferMain.cpp" />
     <ClCompile Include="src\MainCube.cpp" />
+    <ClCompile Include="src\MainGeometryShader.cpp" />
+    <ClCompile Include="src\MainInstanceDraw.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\glad\glad.h">
@@ -511,6 +513,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\MainCube.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MainGeometryShader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MainInstanceDraw.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

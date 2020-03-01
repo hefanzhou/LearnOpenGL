@@ -13,9 +13,11 @@ public:
 		loadModel(path);
 	}
 	void Draw(Shader shader);
-private:
+
 	/*  模型数据  */
 	vector<Mesh> meshes;
+private:
+	
 	string directory;
 	vector<TextureSlot> textures_loaded;
 

@@ -156,6 +156,6 @@ private:
 
 	void updatePerspectiveTransform()
 	{
-		PerspectiveMatrix = glm::perspective(glm::radians(Fov), Aspect, 0.1f, 100.0f);
+		PerspectiveMatrix = glm::perspective(glm::radians(Fov), Aspect, 0.1f, 200.0f);
 	}
 };

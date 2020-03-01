@@ -36,6 +36,16 @@ public:
 
 		textures[index] = slot;
 	}
+
+	void BindVertexArray()
+	{
+		glBindVertexArray(VAO);
+	}
+
+	int IndecesSize()
+	{
+		return indices.size();
+	}
 private:
 	unsigned int VAO, VBO, EBO;
 
