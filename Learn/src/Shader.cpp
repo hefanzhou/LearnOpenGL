@@ -31,7 +31,7 @@ Shader::Shader(const char* vertexPath, const char* fragmentPath)
 	}
 	catch (std::ifstream::failure e)
 	{
-		COUT << "ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ" << std::endl;
+		COUT << vertexPath << " ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ" << std::endl;
 	}
 	const char* vShaderCode = vertexCode.c_str();
 	const char* fShaderCode = fragmentCode.c_str();
@@ -49,7 +49,7 @@ Shader::Shader(const char* vertexPath, const char* fragmentPath)
 	if (!success)
 	{
 		glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
-		COUT << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
+		COUT << vertexPath << " ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
 	}
 
 
@@ -63,7 +63,7 @@ Shader::Shader(const char* vertexPath, const char* fragmentPath)
 	if (!success)
 	{
 		glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
-		COUT << "ERROR::SHADER:Fragment::COMPILATION_FAILED\n" << infoLog << std::endl;
+		COUT << fragmentPath << " ERROR::SHADER:Fragment::COMPILATION_FAILED\n" << infoLog << std::endl;
 	}
 
 	//Á´½Ó
@@ -76,7 +76,7 @@ Shader::Shader(const char* vertexPath, const char* fragmentPath)
 	glGetProgramiv(ID, GL_LINK_STATUS, &success);
 	if (!success) {
 		glGetProgramInfoLog(ID, 512, NULL, infoLog);
-		COUT << "ERROR::SHADER::Link FAILED\n" << infoLog << std::endl;
+		COUT << fragmentPath << " ERROR::SHADER::Link FAILED\n" << infoLog << std::endl;
 	}
 
 	glDeleteShader(vertexShader);
@@ -127,4 +127,10 @@ void Shader::SetTexture(int index, const std::string & name, unsigned int textur
 	setInt(name.c_str(), index);
 	glBindTexture(textureSlotType, textureID);
 	glActiveTexture(GL_TEXTURE0);
+}
+
+void Shader::SetUniformBlockBinding(const std::string & name, int bindingPoint)
+{
+	unsigned int uniformBlockIndex = glGetUniformBlockIndex(ID, name.c_str());
+	glUniformBlockBinding(ID, uniformBlockIndex, bindingPoint);
 }

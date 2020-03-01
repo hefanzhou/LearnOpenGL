@@ -62,7 +62,10 @@ namespace MainCubeMap
 		Shader ColorShader("./shader/CubeMap/SimpleColorShader.vs", "./shader/CubeMap/SimpleColorShader.fs");
 		Shader cubeMapShader("./shader/CubeMap/CubeMap.vs", "./shader/CubeMap/CubeMap.fs");
 		Shader reflectionShader("./shader/CubeMap/CubeMapReflection.vs", "./shader/CubeMap/CubeMapReflection.fs");
-		
+		Shader RedColorShader("./shader/CubeMap/ColorRed.vs", "./shader/CubeMap/ColorRed.fs");
+		Shader GreenColorShader("./shader/CubeMap/ColorRed.vs", "./shader/CubeMap/ColorGreen.fs");
+
+
 		camera = new Camera(glm::vec3(0, 0, -5), 0, 0, 45.0f, (float)screenWidth / screenHeight);
 
 		vector<string> faces =
@@ -80,6 +83,18 @@ namespace MainCubeMap
 		glEnable(GL_DEPTH_TEST);
 		glDepthFunc(GL_LEQUAL);
 
+		unsigned int uboMatrices;
+		glGenBuffers(1, &uboMatrices);
+		glBindBuffer(GL_UNIFORM_BUFFER, uboMatrices);
+		glBufferData(GL_UNIFORM_BUFFER, 2 * sizeof(glm::mat4), NULL, GL_STATIC_DRAW);
+		glBindBuffer(GL_UNIFORM_BUFFER, 0);
+		glBindBufferRange(GL_UNIFORM_BUFFER, 0, uboMatrices, 0, 2 * sizeof(glm::mat4));
+
+		RedColorShader.SetUniformBlockBinding("Matrices", 0);
+
+		glBindBuffer(GL_UNIFORM_BUFFER, uboMatrices);
+		glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(glm::mat4), glm::value_ptr(camera->PerspectiveMatrix));
+		glBindBuffer(GL_UNIFORM_BUFFER, 0);
 
 		auto cubeMesh = GetCubeMesh();
 		std::cout.flush();
@@ -90,24 +105,48 @@ namespace MainCubeMap
 			glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // don't forget to clear the stencil buffer!
 			glm::mat4 PVTrans = camera->GetPVMatrix();
-			
-			reflectionShader.use();
-			glm::mat4 modelTrans;
-			modelTrans = glm::translate(modelTrans, glm::vec3(0.0f, 0.0f, 0.0f));
-			modelTrans = glm::rotate(modelTrans, lastFrame, glm::vec3(0.5f, 0.5f, 0.5f));
-			auto transformMVP = PVTrans * modelTrans;
-			reflectionShader.SetMatrix("transformMVP", transformMVP);
-			reflectionShader.SetMatrix("transformM", modelTrans);
-			reflectionShader.SetTexture(0, "texture_diffuse", cubeTextureId, GL_TEXTURE_CUBE_MAP);
-			reflectionShader.SetVec3("viewPos", camera->Position);
-			cubeMesh->Draw(reflectionShader);
+			glBindBuffer(GL_UNIFORM_BUFFER, uboMatrices);
+			glBufferSubData(GL_UNIFORM_BUFFER, sizeof(glm::mat4), sizeof(glm::mat4), glm::value_ptr(camera->ViewMatrix));
+			glBindBuffer(GL_UNIFORM_BUFFER, 0);
 
-			
-			cubeMapShader.use(); 
-			glm::mat4 CameraViewNoTranslate = glm::mat4(glm::mat3(camera->ViewMatrix));
-			cubeMapShader.SetMatrix("transformVP", camera->PerspectiveMatrix*CameraViewNoTranslate);
-			cubeMapShader.SetTexture(0, "texture_diffuse", cubeTextureId, GL_TEXTURE_CUBE_MAP);
-			cubeMesh->Draw(cubeMapShader);
+			{
+				reflectionShader.use();
+				glm::mat4 modelTrans;
+				modelTrans = glm::translate(modelTrans, glm::vec3(0.0f, 0.0f, 0.0f));
+				modelTrans = glm::rotate(modelTrans, lastFrame, glm::vec3(0.5f, 0.5f, 0.5f));
+				auto transformMVP = PVTrans * modelTrans;
+				reflectionShader.SetMatrix("transformMVP", transformMVP);
+				reflectionShader.SetMatrix("transformM", modelTrans);
+				reflectionShader.SetTexture(0, "texture_diffuse", cubeTextureId, GL_TEXTURE_CUBE_MAP);
+				reflectionShader.SetVec3("viewPos", camera->Position);
+				cubeMesh->Draw(reflectionShader);
+			}
+
+			{
+				RedColorShader.use();
+				glm::mat4 modelTrans;
+				modelTrans = glm::translate(modelTrans, glm::vec3(1.0f, 0.0f, 0.0f));
+				RedColorShader.SetMatrix("transformM", modelTrans);
+				cubeMesh->Draw(RedColorShader);
+
+			}
+
+			{
+				GreenColorShader.use();
+				glm::mat4 modelTrans;
+				modelTrans = glm::translate(modelTrans, glm::vec3(-1.0f, 0.0f, 0.0f));
+				GreenColorShader.SetMatrix("transformM", modelTrans);
+				cubeMesh->Draw(GreenColorShader);
+
+			}
+
+			{
+				cubeMapShader.use();
+				glm::mat4 CameraViewNoTranslate = glm::mat4(glm::mat3(camera->ViewMatrix));
+				cubeMapShader.SetMatrix("transformVP", camera->PerspectiveMatrix*CameraViewNoTranslate);
+				cubeMapShader.SetTexture(0, "texture_diffuse", cubeTextureId, GL_TEXTURE_CUBE_MAP);
+				cubeMesh->Draw(cubeMapShader);
+			}
 
 			glfwSwapBuffers(window);
 			glfwPollEvents();
