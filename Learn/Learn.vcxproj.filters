@@ -30,6 +30,7 @@
     <ClCompile Include="src\MainCube.cpp" />
     <ClCompile Include="src\MainGeometryShader.cpp" />
     <ClCompile Include="src\MainInstanceDraw.cpp" />
+    <ClCompile Include="src\MainShadow.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\glad\glad.h">
@@ -519,6 +520,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\MainInstanceDraw.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MainShadow.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

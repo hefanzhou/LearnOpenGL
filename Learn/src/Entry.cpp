@@ -7,8 +7,9 @@
 #include "MainCube.h"
 #include "MainGeometryShader.h"
 #include "MainInstanceDraw.h"
+#include "MainShadow.h"
 int main()
 {
-	MainInstanceDraw::main();
+	MainShadow::main();
 	return 0;
 }

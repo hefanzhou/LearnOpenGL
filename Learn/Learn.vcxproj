@@ -24,6 +24,7 @@
     <ClCompile Include="src\FrameBufferMain.cpp" />
     <ClCompile Include="src\MainCube.cpp" />
     <ClCompile Include="src\MainInstanceDraw.cpp" />
+    <ClCompile Include="src\MainShadow.cpp" />
     <ClCompile Include="src\Model.cpp" />
     <ClCompile Include="src\Mesh.cpp" />
     <ClCompile Include="src\ModelMain.cpp" />
@@ -45,6 +46,7 @@
     <ClInclude Include="src\FrameBufferMain.h" />
     <ClInclude Include="src\MainCube.h" />
     <ClInclude Include="src\MainInstanceDraw.h" />
+    <ClInclude Include="src\MainShadow.h" />
     <ClInclude Include="src\Model.h" />
     <ClInclude Include="src\Mesh.h" />
     <ClInclude Include="src\ModelMain.h" />
