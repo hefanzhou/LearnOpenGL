@@ -1,6 +1,6 @@
 ﻿  MainShadow.cpp
 d:\work\opengl\project\learn\learn\src\mesh.h(47): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
-d:\work\opengl\project\learn\learn\src\mainshadow.cpp(193): warning C4244: 'argument': conversion from 'double' to 'unsigned int', possible loss of data
-d:\work\opengl\project\learn\learn\src\mainshadow.cpp(210): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-d:\work\opengl\project\learn\learn\src\mainshadow.cpp(214): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+d:\work\opengl\project\learn\learn\src\mainshadow.cpp(324): warning C4244: 'argument': conversion from 'double' to 'unsigned int', possible loss of data
+d:\work\opengl\project\learn\learn\src\mainshadow.cpp(341): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+d:\work\opengl\project\learn\learn\src\mainshadow.cpp(345): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
   Learn.vcxproj -> D:\Work\OpenGL\Project\Learn\x64\Debug\Learn.exe

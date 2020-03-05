@@ -21,11 +21,20 @@ namespace MainShadow
 	void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 	void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 	void InitShadowFrameBuffer(unsigned int &depthbuffer, unsigned int &texDepthBuffer, int width, int height);
+	void ShadowMap();
+	void ShadowMapVSM();
+	void InitShadowVSMFrameBuffer(unsigned int &framebuffer, unsigned int &texColorBuffer, int width, int height);
 
 	Camera *camera = nullptr;
 	float deltaTime = 0.0f; // 当前帧与上一帧的时间差
 	float lastFrame = 0.0f; // 上一帧的时间
 	float pai = 3.14159f / 2.0f;
+	int screenWidth = 800;
+	int screenHeight = 800;
+
+	int shadowWidth = 1024;
+	int shasowHeight = 1024;
+	GLFWwindow* window = nullptr;
 	int main()
 	{
 		// 初始化
@@ -35,14 +44,8 @@ namespace MainShadow
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
-		int screenWidth = 800;
-		int screenHeight = 800;
-
-		int shadowWidth = 1024;
-		int shasowHeight = 1024;
-		GLFWwindow* window = glfwCreateWindow(screenWidth, screenHeight, "LearnOpenGL", NULL, NULL);
-
+		
+		window = glfwCreateWindow(screenWidth, screenHeight, "LearnOpenGL", NULL, NULL);
 		if (window == NULL)
 		{
 			COUT << "Failed to create GLFW window/n";
@@ -57,19 +60,23 @@ namespace MainShadow
 			return -1;
 		}
 
-
 		glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 		glfwSetCursorPosCallback(window, mouse_callback);
 		glfwSetScrollCallback(window, scroll_callback);
 
+		ShadowMapVSM();
+
+		glfwTerminate();
+		return 0;
+	}
+
+
+	void ShadowMap()
+	{
 		Shader TextureShader("./shader/Shadow/TextureShader.vs", "./shader/Shadow/TextureShader.fs");
 		Shader ColorShader("./shader/Shadow/ColorShader.vs", "./shader/Shadow/ColorShader.fs");
 		Shader GenShadowShader("./shader/Shadow/GenShadow.vs", "./shader/Shadow/GenShadow.fs");
-		
-
 		camera = new Camera(glm::vec3(0, 5, -10), 0, -25, 45.0f, (float)screenWidth / screenHeight);
-		
-
 		glEnable(GL_DEPTH_TEST);
 		glDepthFunc(GL_LEQUAL);
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
@@ -126,7 +133,7 @@ namespace MainShadow
 				glBindFramebuffer(GL_FRAMEBUFFER, 0);
 				glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-				
+
 				{
 					TextureShader.use();
 					glm::mat4 model;
@@ -149,18 +156,108 @@ namespace MainShadow
 				}
 
 			}
-			
-		
+
+
 			glfwSwapBuffers(window);
 			glfwPollEvents();
 
 			if (CheckError()) break;
 		}
-
-		glfwTerminate();
-		return 0;
 	}
+	void ShadowMapVSM()
+	{
+		Shader TextureShader("./shader/ShadowVSM/TextureShader.vs", "./shader/ShadowVSM/TextureShader.fs");
+		Shader ColorShader("./shader/ShadowVSM/ColorShader.vs", "./shader/ShadowVSM/ColorShader.fs");
+		Shader GenShadowShader("./shader/ShadowVSM/GenShadow.vs", "./shader/ShadowVSM/GenShadow.fs");
+		Texture cubeTexture("./res/container.jpg", false);
 
+		camera = new Camera(glm::vec3(0, 5, -10), 0, -25, 45.0f, (float)screenWidth / screenHeight);
+		glEnable(GL_DEPTH_TEST);
+		glDepthFunc(GL_LEQUAL);
+		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+
+		unsigned int depthBuffer = 0;
+		unsigned int depthTex = 0;
+		InitShadowVSMFrameBuffer(depthBuffer, depthTex, shadowWidth, shasowHeight);
+		auto planMesh = GetPlanMesh(50, 50, 100, 100);
+		auto cubeMesh = GetCubeMesh();
+
+		std::cout.flush();
+		while (!glfwWindowShouldClose(window))
+		{
+			UpdateTime();
+			processInput(window);
+			glm::vec3 LightPos(3, 3, 3);
+			glm::vec3 LightDir = glm::vec3(0, 0, 0) - LightPos;
+			glm::normalize(LightDir);
+
+			GLfloat near_plane = 1.0f, far_plane = 7.5f;
+			glm::mat4 lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, near_plane, far_plane);
+			glm::mat4 lightView = glm::lookAt(LightPos, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+
+			// 阴影图
+			{
+				glViewport(0, 0, shadowWidth, shasowHeight);
+				glBindFramebuffer(GL_FRAMEBUFFER, depthBuffer);
+				glClear(GL_DEPTH_BUFFER_BIT);
+				glCullFace(GL_FRONT);
+
+				GenShadowShader.use();
+				{
+					glm::mat4 model;
+					model = glm::translate(model, glm::vec3(0, 0.5, 0));
+					GenShadowShader.SetMatrix("transformMVP", lightProjection*lightView*model);
+					cubeMesh->Draw(GenShadowShader);
+				}
+
+				{
+					glm::mat4 model;
+					model = glm::translate(model, glm::vec3(0, 0, 0));
+					GenShadowShader.SetMatrix("transformMVP", lightProjection*lightView*model);
+					planMesh.Draw(GenShadowShader);
+				}
+
+				glCullFace(GL_BACK);
+			}
+
+			// 真实场景
+			{
+				glm::mat4 PVTrans = camera->GetPVMatrix();
+				glViewport(0, 0, screenWidth, screenHeight);
+				glBindFramebuffer(GL_FRAMEBUFFER, 0);
+				glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+
+				{
+					TextureShader.use();
+					glm::mat4 model;
+					model = glm::translate(model, glm::vec3(0, 0.5, 0));
+					TextureShader.SetMatrix("transformMVP", PVTrans*model);
+					TextureShader.SetMatrix("lightSpaceMatrix", lightProjection*lightView*model);
+					TextureShader.SetTexture(0, "texture_diffuse", cubeTexture.GetTextureID());
+					TextureShader.SetTexture(1, "textureShadow", depthTex);
+					cubeMesh->Draw(TextureShader);
+				}
+
+				{
+					ColorShader.use();
+					glm::mat4 model;
+					model = glm::translate(model, glm::vec3(0, 0, 0));
+					ColorShader.SetMatrix("transformMVP", PVTrans*model);
+					TextureShader.SetMatrix("lightSpaceMatrix", lightProjection*lightView*model);
+					ColorShader.SetTexture(0, "textureShadow", depthTex);
+					planMesh.Draw(ColorShader);
+				}
+
+			}
+
+
+			glfwSwapBuffers(window);
+			glfwPollEvents();
+
+			if (CheckError()) break;
+		}
+	}
 
 	void InitShadowFrameBuffer(unsigned int &depthbuffer, unsigned int &texDepthBuffer, int width, int height)
 	{
@@ -186,6 +283,40 @@ namespace MainShadow
 		glReadBuffer(GL_NONE);
 	}
 	
+
+	void InitShadowVSMFrameBuffer(unsigned int &framebuffer, unsigned int &texColorBuffer, int width, int height)
+	{
+		glGenFramebuffers(1, &framebuffer);
+		glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
+
+		// 生成纹理
+		glGenTextures(1, &texColorBuffer);
+		glBindTexture(GL_TEXTURE_2D, texColorBuffer);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+		GLfloat borderColor[] = { 1.0, 1.0, 1.0, 1.0 };
+		glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		// 将它附加到当前绑定的帧缓冲对象
+		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, texColorBuffer, 0);
+
+
+		unsigned int rbo;
+		glGenRenderbuffers(1, &rbo);
+		glBindRenderbuffer(GL_RENDERBUFFER, rbo);
+		glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, width, height);
+		glBindRenderbuffer(GL_RENDERBUFFER, 0);
+
+		glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, rbo);
+
+		if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+			std::cout << "ERROR::FRAMEBUFFER:: Framebuffer is not complete!" << std::endl;
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	}
 	glm::mat4 * InitTransformArray(unsigned int amount)
 	{
 		glm::mat4 *modelMatrices;
