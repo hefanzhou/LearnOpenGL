@@ -2,7 +2,6 @@
 out vec4 FragColor;  
 uniform samplerCube textureShadow;
 uniform sampler2D texure_diffuse;
-uniform sampler2D texure_diffuse2;
 uniform float far_plane;
 uniform vec3 LightPos;
 in vec2 TexCoord;
@@ -31,8 +30,7 @@ void main()
 {
 
     vec3 textureColor = (texture(texure_diffuse, TexCoord)).rgb;
-    vec3 textureColor2 = (texture(texure_diffuse2, TexCoord)).rgb;
-    // float shadow = ShadowCalculation();
-    // textureColor *=(1-shadow);
-    FragColor = vec4( textureColor2, 1.0);
+    float shadow = ShadowCalculation();
+    textureColor *=(1-shadow);
+    FragColor = vec4( textureColor, 1.0);
 }

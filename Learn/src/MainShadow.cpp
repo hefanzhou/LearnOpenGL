@@ -269,7 +269,6 @@ namespace MainShadow
 			"./shader/ShadowPoint/GenShadow.fs",
 			"./shader/ShadowPoint/GenShadow.gs");
 		Texture cubeTexture("./res/container.jpg", false);
-		Texture texture2("./res/awesomeface.png", true);
 
 		camera = new Camera(glm::vec3(0, 5, -10), 0, -25, 45.0f, (float)screenWidth / screenHeight);
 		glEnable(GL_DEPTH_TEST);
@@ -283,11 +282,12 @@ namespace MainShadow
 		auto cubeMesh = GetCubeMesh();
 
 		std::cout.flush();
+		glm::mat4 modelZero;
 		while (!glfwWindowShouldClose(window))
 		{
 			UpdateTime();
 			processInput(window);
-			glm::vec3 LightPos(3, 3, 3);
+			glm::vec3 LightPos(5*glm::sin(lastFrame), 3, 5*glm::cos(lastFrame));
 
 			GLfloat near = 1.0f;
 			GLfloat far = 25.0f;
@@ -325,7 +325,19 @@ namespace MainShadow
 
 				{
 					glm::mat4 model;
-					model = glm::translate(model, glm::vec3(0, 0.5, 0));
+					model = modelZero;
+					model = glm::translate(model, glm::vec3(-5, 0.5, 0));
+					GenShadowShader.SetMatrix("model", model);
+					cubeMesh->Draw(GenShadowShader);
+
+					
+					model = modelZero;
+					model = glm::translate(model, glm::vec3(5, 0.5, 0));
+					GenShadowShader.SetMatrix("model", model);
+					cubeMesh->Draw(GenShadowShader);
+
+					model = modelZero;
+					model = glm::translate(model, glm::vec3(0, 0.5, 5));
 					GenShadowShader.SetMatrix("model", model);
 					cubeMesh->Draw(GenShadowShader);
 				}
@@ -350,16 +362,26 @@ namespace MainShadow
 				{
 					TextureShader.use();
 					glm::mat4 model;
-					model = glm::translate(model, glm::vec3(0, 0.5, 0));
+					model = glm::translate(model, glm::vec3(-5, 0.5, 0));
 					TextureShader.SetMatrix("transformMVP", PVTrans*model);
 					TextureShader.SetMatrix("modeTransform", model);
-					TextureShader.SetTexture(0, "texture_diffuse2", texture2.GetTextureID());
-
-					TextureShader.SetTexture(1, "texture_diffuse", cubeTexture.GetTextureID());
-					//TextureShader.SetTexture(0, "textureShadow", depthCubmapTex, GL_TEXTURE_CUBE_MAP);
+					TextureShader.SetTexture(0, "texure_diffuse", cubeTexture.GetTextureID());
+					TextureShader.SetTexture(1, "textureShadow", depthCubmapTex, GL_TEXTURE_CUBE_MAP);
 					TextureShader.setFloat("far_plane", far);
 					TextureShader.SetVec3("LightPos", LightPos);
 					cubeMesh->Draw(TextureShader);
+
+					model = modelZero;
+					model = glm::translate(model, glm::vec3(5, 0.5, 0));
+					TextureShader.SetMatrix("transformMVP", PVTrans*model);
+					TextureShader.SetMatrix("modeTransform", model);
+					cubeMesh->Draw(GenShadowShader);
+
+					model = modelZero;
+					model = glm::translate(model, glm::vec3(0, 0.5, 5));
+					TextureShader.SetMatrix("transformMVP", PVTrans*model);
+					TextureShader.SetMatrix("modeTransform", model);
+					cubeMesh->Draw(GenShadowShader);
 				}
 
 				{

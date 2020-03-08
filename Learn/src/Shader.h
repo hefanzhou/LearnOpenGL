@@ -24,4 +24,5 @@ public:
 	void SetVec4(const std::string &name, glm::vec4 value) const;
 	void SetTexture(int index, const std::string &name, unsigned int textureID, unsigned int textureSlotType = GL_TEXTURE_2D);
 	void SetUniformBlockBinding(const std::string &name, int bindingPoint);
+	int GetUniformLocation(const std::string &name) const;
 };
