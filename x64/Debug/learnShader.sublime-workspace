@@ -5,7 +5,15 @@
 		[
 			[
 				"tex",
-				"textureColor"
+				"TexCoord"
+			],
+			[
+				"ve",
+				"vec2"
+			],
+			[
+				"vec",
+				"vec3"
 			],
 			[
 				"sh",
@@ -20,10 +28,6 @@
 				"normalMat"
 			],
 			[
-				"ve",
-				"vec3"
-			],
-			[
 				"v",
 				"vec3"
 			],
@@ -34,10 +38,6 @@
 			[
 				"te",
 				"textureColor"
-			],
-			[
-				"vec",
-				"vec4"
 			],
 			[
 				"re",
@@ -240,16 +240,34 @@
 			}
 		},
 		{
-			"file": "shader/Shadow/GenShadow.vs",
+			"file": "shader/ShadowPoint/GenShadow.gs",
 			"settings":
 			{
-				"buffer_size": 244,
+				"buffer_size": 579,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "shader/Shadow/TextureInstance.vs",
+			"file": "shader/ShadowPoint/GenShadow.fs",
+			"settings":
+			{
+				"buffer_size": 327,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "shader/ShadowPoint/ColorShader.vs",
+			"settings":
+			{
+				"buffer_size": 338,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "shader/ShadowPoint/TextureShader.vs",
 			"settings":
 			{
 				"buffer_size": 383,
@@ -258,46 +276,28 @@
 			}
 		},
 		{
-			"file": "shader/Shadow/TextureShader.fs",
+			"file": "shader/ShadowPoint/TextureShader.fs",
 			"settings":
 			{
-				"buffer_size": 919,
+				"buffer_size": 1092,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "shader/Shadow/TextureShader.vs",
+			"file": "shader/ShadowPoint/ColorShader.fs",
 			"settings":
 			{
-				"buffer_size": 404,
+				"buffer_size": 964,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "shader/Shadow/ColorShader.fs",
+			"file": "shader/ShadowPoint/GenShadow.vs",
 			"settings":
 			{
-				"buffer_size": 1053,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "shader/Shadow/ColorShader.vs",
-			"settings":
-			{
-				"buffer_size": 359,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "shader/Shadow/GenShadow.fs",
-			"settings":
-			{
-				"buffer_size": 37,
+				"buffer_size": 230,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -347,10 +347,23 @@
 		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/InstanceDraw",
 		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/Light",
 		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/Model",
-		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/Shadow"
+		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/Shadow",
+		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/ShadowPoint",
+		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/ShadowVSM"
 	],
 	"file_history":
 	[
+		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/ShadowPoint/TextureInstance.vs",
+		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/ShadowVSM/GenShadow.vs",
+		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/ShadowVSM/GenShadow.fs",
+		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/ShadowVSM/ColorShader.fs",
+		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/ShadowVSM/ColorShader.vs",
+		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/Shadow/GenShadow.vs",
+		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/Shadow/TextureShader.fs",
+		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/Shadow/TextureShader.vs",
+		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/Shadow/ColorShader.fs",
+		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/Shadow/ColorShader.vs",
+		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/Shadow/GenShadow.fs",
 		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/InstanceDraw/TextureShader.fs",
 		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/InstanceDraw/TextureShader.vs",
 		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/InstanceDraw/TextureInstance.vs",
@@ -525,32 +538,34 @@
 							"syntax": "Packages/Text/Plain text.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 1.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "shader/Shadow/GenShadow.vs",
+					"file": "shader/ShadowPoint/GenShadow.gs",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 244,
+						"buffer_size": 579,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								243,
-								243
+								130,
+								137
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/C++/C++.sublime-syntax"
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -561,75 +576,19 @@
 				},
 				{
 					"buffer": 2,
-					"file": "shader/Shadow/TextureInstance.vs",
-					"semi_transient": true,
+					"file": "shader/ShadowPoint/GenShadow.fs",
+					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 383,
+						"buffer_size": 327,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
+								327,
 								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 7,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "shader/Shadow/TextureShader.fs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 919,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								332,
-								286
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "shader/Shadow/TextureShader.vs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 404,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								180,
-								180
 							]
 						],
 						"settings":
@@ -644,20 +603,20 @@
 					"type": "text"
 				},
 				{
-					"buffer": 5,
-					"file": "shader/Shadow/ColorShader.fs",
+					"buffer": 3,
+					"file": "shader/ShadowPoint/ColorShader.vs",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1053,
+						"buffer_size": 338,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								496,
-								496
+								238,
+								238
 							]
 						],
 						"settings":
@@ -668,24 +627,24 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
-					"buffer": 6,
-					"file": "shader/Shadow/ColorShader.vs",
+					"buffer": 4,
+					"file": "shader/ShadowPoint/TextureShader.vs",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 359,
+						"buffer_size": 383,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								252,
-								252
+								245,
+								245
 							]
 						],
 						"settings":
@@ -700,20 +659,50 @@
 					"type": "text"
 				},
 				{
-					"buffer": 7,
-					"file": "shader/Shadow/GenShadow.fs",
+					"buffer": 5,
+					"file": "shader/ShadowPoint/TextureShader.fs",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 37,
+						"buffer_size": 1092,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								18,
-								18
+								1092,
+								1092
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 24.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "shader/ShadowPoint/ColorShader.fs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 964,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								141,
+								141
 							]
 						],
 						"settings":
@@ -724,7 +713,35 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "shader/ShadowPoint/GenShadow.vs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 230,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								227,
+								227
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
 					"type": "text"
 				}
 			]

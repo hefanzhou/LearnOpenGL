@@ -23,7 +23,9 @@ namespace MainShadow
 	void InitShadowFrameBuffer(unsigned int &depthbuffer, unsigned int &texDepthBuffer, int width, int height);
 	void ShadowMap();
 	void ShadowMapVSM();
+	void ShadowMapPointLight();
 	void InitShadowVSMFrameBuffer(unsigned int &framebuffer, unsigned int &texColorBuffer, int width, int height);
+	void InitShadowPointLightFrameBuffer(unsigned int &depthbuffer, unsigned int &depthCubemap, int width, int height);
 
 	Camera *camera = nullptr;
 	float deltaTime = 0.0f; // 当前帧与上一帧的时间差
@@ -33,7 +35,7 @@ namespace MainShadow
 	int screenHeight = 800;
 
 	int shadowWidth = 1024;
-	int shasowHeight = 1024;
+	int shadowHeight = 1024;
 	GLFWwindow* window = nullptr;
 	int main()
 	{
@@ -64,7 +66,7 @@ namespace MainShadow
 		glfwSetCursorPosCallback(window, mouse_callback);
 		glfwSetScrollCallback(window, scroll_callback);
 
-		ShadowMapVSM();
+		ShadowMapPointLight();
 
 		glfwTerminate();
 		return 0;
@@ -83,7 +85,7 @@ namespace MainShadow
 
 		unsigned int depthBuffer = 0;
 		unsigned int depthTex = 0;
-		InitShadowFrameBuffer(depthBuffer, depthTex, shadowWidth, shasowHeight);
+		InitShadowFrameBuffer(depthBuffer, depthTex, shadowWidth, shadowHeight);
 		auto planMesh = GetPlanMesh(50, 50, 100, 100);
 		auto cubeMesh = GetCubeMesh();
 		Texture cubeTexture("./res/container.jpg", false);
@@ -103,7 +105,7 @@ namespace MainShadow
 
 			// 阴影图
 			{
-				glViewport(0, 0, shadowWidth, shasowHeight);
+				glViewport(0, 0, shadowWidth, shadowHeight);
 				glBindFramebuffer(GL_FRAMEBUFFER, depthBuffer);
 				glClear(GL_DEPTH_BUFFER_BIT);
 				glCullFace(GL_FRONT);
@@ -178,7 +180,7 @@ namespace MainShadow
 
 		unsigned int depthBuffer = 0;
 		unsigned int depthTex = 0;
-		InitShadowVSMFrameBuffer(depthBuffer, depthTex, shadowWidth, shasowHeight);
+		InitShadowVSMFrameBuffer(depthBuffer, depthTex, shadowWidth, shadowHeight);
 		auto planMesh = GetPlanMesh(50, 50, 100, 100);
 		auto cubeMesh = GetCubeMesh();
 
@@ -197,7 +199,7 @@ namespace MainShadow
 
 			// 阴影图
 			{
-				glViewport(0, 0, shadowWidth, shasowHeight);
+				glViewport(0, 0, shadowWidth, shadowHeight);
 				glBindFramebuffer(GL_FRAMEBUFFER, depthBuffer);
 				glClear(GL_DEPTH_BUFFER_BIT);
 				glCullFace(GL_FRONT);
@@ -247,6 +249,131 @@ namespace MainShadow
 					TextureShader.SetMatrix("lightSpaceMatrix", lightProjection*lightView*model);
 					ColorShader.SetTexture(0, "textureShadow", depthTex);
 					planMesh.Draw(ColorShader);
+				}
+
+			}
+
+
+			glfwSwapBuffers(window);
+			glfwPollEvents();
+
+			if (CheckError()) break;
+		}
+	}
+
+	void ShadowMapPointLight()
+	{
+		Shader TextureShader("./shader/ShadowPoint/TextureShader.vs", "./shader/ShadowPoint/TextureShader.fs");
+		Shader ColorShader("./shader/ShadowPoint/ColorShader.vs", "./shader/ShadowPoint/ColorShader.fs");
+		Shader GenShadowShader("./shader/ShadowPoint/GenShadow.vs",
+			"./shader/ShadowPoint/GenShadow.fs",
+			"./shader/ShadowPoint/GenShadow.gs");
+		Texture cubeTexture("./res/container.jpg", false);
+		Texture texture2("./res/awesomeface.png", true);
+
+		camera = new Camera(glm::vec3(0, 5, -10), 0, -25, 45.0f, (float)screenWidth / screenHeight);
+		glEnable(GL_DEPTH_TEST);
+		glDepthFunc(GL_LEQUAL);
+		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+
+		unsigned int depthBuffer = 0;
+		unsigned int depthCubmapTex = 0;
+		InitShadowPointLightFrameBuffer(depthBuffer, depthCubmapTex, shadowWidth, shadowHeight);
+		auto planMesh = GetPlanMesh(50, 50, 100, 100);
+		auto cubeMesh = GetCubeMesh();
+
+		std::cout.flush();
+		while (!glfwWindowShouldClose(window))
+		{
+			UpdateTime();
+			processInput(window);
+			glm::vec3 LightPos(3, 3, 3);
+
+			GLfloat near = 1.0f;
+			GLfloat far = 25.0f;
+			glm::mat4 shadowProj = glm::perspective(glm::radians(90.0f), (float)shadowWidth/shadowHeight, near, far);
+
+			std::vector<glm::mat4> shadowTransforms;
+			{
+				shadowTransforms.push_back(shadowProj *
+					glm::lookAt(LightPos, LightPos + glm::vec3(1.0, 0.0, 0.0), glm::vec3(0.0, -1.0, 0.0)));
+				shadowTransforms.push_back(shadowProj *
+					glm::lookAt(LightPos, LightPos + glm::vec3(-1.0, 0.0, 0.0), glm::vec3(0.0, -1.0, 0.0)));
+				shadowTransforms.push_back(shadowProj *
+					glm::lookAt(LightPos, LightPos + glm::vec3(0.0, 1.0, 0.0), glm::vec3(0.0, 0.0, 1.0)));
+				shadowTransforms.push_back(shadowProj *
+					glm::lookAt(LightPos, LightPos + glm::vec3(0.0, -1.0, 0.0), glm::vec3(0.0, 0.0, -1.0)));
+				shadowTransforms.push_back(shadowProj *
+					glm::lookAt(LightPos, LightPos + glm::vec3(0.0, 0.0, 1.0), glm::vec3(0.0, -1.0, 0.0)));
+				shadowTransforms.push_back(shadowProj *
+					glm::lookAt(LightPos, LightPos + glm::vec3(0.0, 0.0, -1.0), glm::vec3(0.0, -1.0, 0.0)));
+			}
+			// 阴影图
+			{
+				glViewport(0, 0, shadowWidth, shadowHeight);
+				glBindFramebuffer(GL_FRAMEBUFFER, depthBuffer);
+				glClear(GL_DEPTH_BUFFER_BIT);
+				glCullFace(GL_FRONT);
+
+				GenShadowShader.use();
+				GenShadowShader.setFloat("far_plane", far);
+				GenShadowShader.SetVec3("lightPos", LightPos);
+				for (GLuint i = 0; i < 6; ++i)
+				{
+					GenShadowShader.SetMatrix(("shadowMatrices[" + std::to_string(i) + "]").c_str(), shadowTransforms[i]);
+				}
+
+				{
+					glm::mat4 model;
+					model = glm::translate(model, glm::vec3(0, 0.5, 0));
+					GenShadowShader.SetMatrix("model", model);
+					cubeMesh->Draw(GenShadowShader);
+				}
+
+				{
+					glm::mat4 model;
+					model = glm::translate(model, glm::vec3(0, 0, 0));
+					GenShadowShader.SetMatrix("model", model);
+					planMesh.Draw(GenShadowShader);
+				}
+
+				glCullFace(GL_BACK);
+			}
+
+			// 真实场景
+			{
+				glm::mat4 PVTrans = camera->GetPVMatrix();
+				glViewport(0, 0, screenWidth, screenHeight);
+				glBindFramebuffer(GL_FRAMEBUFFER, 0);
+				glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+				{
+					TextureShader.use();
+					glm::mat4 model;
+					model = glm::translate(model, glm::vec3(0, 0.5, 0));
+					TextureShader.SetMatrix("transformMVP", PVTrans*model);
+					TextureShader.SetMatrix("modeTransform", model);
+					TextureShader.SetTexture(0, "texture_diffuse2", texture2.GetTextureID());
+
+					TextureShader.SetTexture(1, "texture_diffuse", cubeTexture.GetTextureID());
+					//TextureShader.SetTexture(0, "textureShadow", depthCubmapTex, GL_TEXTURE_CUBE_MAP);
+					TextureShader.setFloat("far_plane", far);
+					TextureShader.SetVec3("LightPos", LightPos);
+					cubeMesh->Draw(TextureShader);
+				}
+
+				{
+					ColorShader.use();
+					glm::mat4 model;
+					model = glm::translate(model, glm::vec3(0, 0, 0));
+					ColorShader.SetMatrix("transformMVP", PVTrans*model);
+					ColorShader.SetMatrix("modeTransform", model);
+					ColorShader.SetTexture(0, "textureShadow", depthCubmapTex, GL_TEXTURE_CUBE_MAP);
+					ColorShader.setFloat("far_plane", far);
+					ColorShader.SetVec3("LightPos", LightPos);
+
+					planMesh.Draw(ColorShader);
+
 				}
 
 			}
@@ -316,6 +443,32 @@ namespace MainShadow
 		if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
 			std::cout << "ERROR::FRAMEBUFFER:: Framebuffer is not complete!" << std::endl;
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	}
+
+
+	void InitShadowPointLightFrameBuffer(unsigned int &depthbuffer, unsigned int &depthCubemap, int width, int height)
+	{
+		glGenFramebuffers(1, &depthbuffer);
+		glBindFramebuffer(GL_FRAMEBUFFER, depthbuffer);
+
+		// 生成纹理
+		glGenTextures(1, &depthCubemap);
+		glBindTexture(GL_TEXTURE_CUBE_MAP, depthCubemap);
+		for (GLuint i = 0; i < 6; ++i)
+			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_DEPTH_COMPONENT,
+				width, height, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
+
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+
+		glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, depthCubemap, 0);
+		glDrawBuffer(GL_NONE);
+		glReadBuffer(GL_NONE);
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
 	}
 	glm::mat4 * InitTransformArray(unsigned int amount)
 	{
