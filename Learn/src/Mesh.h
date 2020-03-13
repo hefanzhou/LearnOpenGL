@@ -12,6 +12,8 @@ struct Vertex {
 	glm::vec3 Position;
 	glm::vec3 Normal;
 	glm::vec2 TexCoords;
+	glm::vec3 Tangent;
+	glm::vec3 Bitangent;
 };
 
 struct TextureSlot {
@@ -46,15 +48,22 @@ public:
 	{
 		return indices.size();
 	}
+
+	void EnableTangent(bool enable)
+	{
+		enableTangent = enable;
+	}
+	/*  函数  */
+	void setupMesh();
+
 private:
 	unsigned int VAO, VBO, EBO;
+	bool enableTangent;
 
 	/*  网格数据  */
 	vector<Vertex> vertices;
 	vector<unsigned int> indices;
 	vector<TextureSlot> textures;
 
-	/*  函数  */
-	void setupMesh();
 };
 

@@ -31,6 +31,7 @@
     <ClCompile Include="src\MainGeometryShader.cpp" />
     <ClCompile Include="src\MainInstanceDraw.cpp" />
     <ClCompile Include="src\MainShadow.cpp" />
+    <ClCompile Include="src\MainMoreTexture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\glad\glad.h">
@@ -523,6 +524,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\MainShadow.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MainMoreTexture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -8,8 +8,9 @@
 #include "MainGeometryShader.h"
 #include "MainInstanceDraw.h"
 #include "MainShadow.h"
+#include "MainMoreTexture.h"
 int main()
 {
-	MainShadow::main();
+	MainMoreTexture::main();
 	return 0;
 }

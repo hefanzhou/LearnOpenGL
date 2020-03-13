@@ -122,6 +122,8 @@ Mesh GetPlanMesh(int sizex, int sizez, int gridCountX, int gridCountZ)
 			vertex.TexCoords.y = zIndex / (float)gridCountZ;
 
 			vertex.Normal = glm::vec3(0, 1, 0);
+			vertex.Tangent = glm::vec3(1, 0, 0);
+			vertex.Bitangent = glm::vec3(0, 0, 1);
 			vertexList.push_back(vertex);
 		}
 	}
@@ -144,6 +146,8 @@ Mesh GetPlanMesh(int sizex, int sizez, int gridCountX, int gridCountZ)
 			indices.push_back(D);
 			indices.push_back(B);
 			indices.push_back(A);
+
+
 		}
 	}
 
@@ -153,6 +157,7 @@ Mesh GetPlanMesh(int sizex, int sizez, int gridCountX, int gridCountZ)
 
 	return mesh;
 }
+
 
 Mesh GetScreenMesh()
 {
