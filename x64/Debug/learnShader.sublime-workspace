@@ -8,12 +8,16 @@
 				"vec3"
 			],
 			[
-				"re",
-				"return"
+				"pr",
+				"preTexCoords"
 			],
 			[
 				"cu",
-				"currentDepth"
+				"curDepthDiff"
+			],
+			[
+				"re",
+				"return"
 			],
 			[
 				"te",
@@ -78,10 +82,6 @@
 			[
 				"fl",
 				"float2"
-			],
-			[
-				"pr",
-				"previousPos"
 			],
 			[
 				"s",
@@ -244,28 +244,54 @@
 			}
 		},
 		{
-			"file": "shader/MoreTexture/Light.vs",
+			"file": "shader/Model/CubeShader.fs",
 			"settings":
 			{
-				"buffer_size": 163,
+				"buffer_size": 963,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "shader/Bloom/commonLight.fs",
+			"settings":
+			{
+				"buffer_size": 642,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "shader/MoreTexture/NormalTexture.fs",
+			"file": "shader/Bloom/Light.fs",
 			"settings":
 			{
-				"buffer_size": 1249,
+				"buffer_size": 331,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "shader/MoreTexture/NormalTexture.vs",
+			"file": "shader/Bloom/Screen.fs",
 			"settings":
 			{
-				"buffer_size": 864,
+				"buffer_size": 210,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "shader/Bloom/Screen.vs",
+			"settings":
+			{
+				"buffer_size": 256,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "shader/Bloom/commonLight.vs",
+			"settings":
+			{
+				"buffer_size": 455,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -309,6 +335,7 @@
 	[
 		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader",
 		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/Blend",
+		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/Bloom",
 		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/CubeMap",
 		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/FrameBuffer",
 		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/Geometry",
@@ -317,12 +344,14 @@
 		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/Model",
 		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/MoreTexture",
 		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/Shadow",
-		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/ShadowPoint",
 		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/ShadowVSM",
 		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/Test"
 	],
 	"file_history":
 	[
+		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/Bloom/shader.fs",
+		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/MoreTexture/NormalTexture.fs",
+		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/MoreTexture/NormalTexture.vs",
 		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/MoreTexture/LightShader.fs",
 		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/MoreTexture/NormalShader.vs",
 		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/MoreTexture/NormalShader.fs",
@@ -446,7 +475,7 @@
 	],
 	"find":
 	{
-		"height": 27.0
+		"height": 40.0
 	},
 	"find_in_files":
 	{
@@ -460,6 +489,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"ourTexture",
 			"float4",
 			"EncodeHeight",
 			"float2",
@@ -498,7 +528,7 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 4,
 			"sheets":
 			[
 				{
@@ -523,7 +553,7 @@
 							"syntax": "Packages/Text/Plain text.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 1.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
@@ -531,19 +561,132 @@
 				},
 				{
 					"buffer": 1,
-					"file": "shader/MoreTexture/Light.vs",
+					"file": "shader/Model/CubeShader.fs",
 					"semi_transient": true,
 					"settings":
 					{
-						"buffer_size": 163,
+						"buffer_size": 963,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								163,
-								163
+								126,
+								91
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "shader/Bloom/commonLight.fs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 642,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								99,
+								108
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "shader/Bloom/Light.fs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 331,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								128,
+								128
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "shader/Bloom/Screen.fs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 210,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								51,
+								51
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "shader/Bloom/Screen.vs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 256,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								134,
+								134
 							]
 						],
 						"settings":
@@ -558,62 +701,31 @@
 					"type": "text"
 				},
 				{
-					"buffer": 2,
-					"file": "shader/MoreTexture/NormalTexture.fs",
+					"buffer": 6,
+					"file": "shader/Bloom/commonLight.vs",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1249,
+						"buffer_size": 455,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								789,
-								789
+								153,
+								74
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/C++/C++.sublime-syntax",
-							"translate_tabs_to_spaces": false
+							"syntax": "Packages/C++/C++.sublime-syntax"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "shader/MoreTexture/NormalTexture.vs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 864,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								497,
-								497
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
+					"stack_index": 4,
 					"type": "text"
 				}
 			]

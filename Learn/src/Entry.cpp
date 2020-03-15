@@ -9,8 +9,9 @@
 #include "MainInstanceDraw.h"
 #include "MainShadow.h"
 #include "MainMoreTexture.h"
+#include "MainBloom.h"
 int main()
 {
-	MainMoreTexture::main();
+	MainBloom::main();
 	return 0;
 }

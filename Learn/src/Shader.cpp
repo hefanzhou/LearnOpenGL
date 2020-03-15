@@ -5,6 +5,8 @@
 
 Shader::Shader(const char* vertexPath, const char* fragmentPath, const GLchar* geometryPath)
 {
+	shaderPath = vertexPath;
+
 	// 1. 从文件路径中获取顶点/片段着色器
 	std::string vertexCode;
 	std::string fragmentCode;
@@ -173,6 +175,6 @@ int Shader::GetUniformLocation(const std::string & name) const
 {
 	int value = glGetUniformLocation(ID, name.c_str());
 	if (value < 0)
-		COUT << "GetUniformLocationError:" << name << std::endl;
+		COUT << shaderPath << ":GetUniformLocationError:" << name << std::endl;
 	return value;
 }

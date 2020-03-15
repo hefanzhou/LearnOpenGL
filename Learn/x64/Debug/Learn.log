@@ -1,3 +1,3 @@
-﻿  MainMoreTexture.cpp
+﻿  MainBloom.cpp
 d:\work\opengl\project\learn\learn\src\mesh.h(49): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
   Learn.vcxproj -> D:\Work\OpenGL\Project\Learn\x64\Debug\Learn.exe

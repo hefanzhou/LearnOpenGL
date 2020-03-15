@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\MainBloom.cpp" />
     <ClCompile Include="src\MainGeometryShader.cpp" />
     <ClCompile Include="src\BlendMain.cpp" />
     <ClCompile Include="src\FrameBufferMain.cpp" />
@@ -42,6 +43,7 @@
     <ClCompile Include="src\Test.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\MainBloom.h" />
     <ClInclude Include="src\MainGeometryShader.h" />
     <ClInclude Include="src\BlendMain.h" />
     <ClInclude Include="src\FrameBufferMain.h" />
