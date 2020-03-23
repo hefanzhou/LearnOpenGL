@@ -10,8 +10,9 @@
 #include "MainShadow.h"
 #include "MainMoreTexture.h"
 #include "MainBloom.h"
+#include "MainDeferred.h"
 int main()
 {
-	MainBloom::main();
+	MainDeferred::main();
 	return 0;
 }

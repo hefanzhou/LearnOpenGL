@@ -33,6 +33,7 @@
     <ClCompile Include="src\MainShadow.cpp" />
     <ClCompile Include="src\MainMoreTexture.cpp" />
     <ClCompile Include="src\MainBloom.cpp" />
+    <ClCompile Include="src\MainDeferred.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\glad\glad.h">
@@ -531,6 +532,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\MainBloom.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MainDeferred.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

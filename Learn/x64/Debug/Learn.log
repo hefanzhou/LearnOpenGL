@@ -1,3 +1,10 @@
-﻿  MainBloom.cpp
+﻿  MainDeferred.cpp
 d:\work\opengl\project\learn\learn\src\mesh.h(49): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+d:\work\opengl\project\learn\learn\src\maindeferred.cpp(101): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
+d:\work\opengl\project\learn\learn\src\maindeferred.cpp(102): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
+d:\work\opengl\project\learn\learn\src\maindeferred.cpp(103): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
+d:\work\opengl\project\learn\learn\src\maindeferred.cpp(106): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
+d:\work\opengl\project\learn\learn\src\maindeferred.cpp(107): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
+d:\work\opengl\project\learn\learn\src\maindeferred.cpp(108): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
+d:\work\opengl\project\learn\learn\src\maindeferred.cpp(352): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
   Learn.vcxproj -> D:\Work\OpenGL\Project\Learn\x64\Debug\Learn.exe

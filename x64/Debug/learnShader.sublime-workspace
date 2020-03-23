@@ -244,55 +244,90 @@
 			}
 		},
 		{
-			"file": "shader/Model/CubeShader.fs",
+			"file": "shader/Deferred/commonLight.fs",
 			"settings":
 			{
-				"buffer_size": 963,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "shader/Bloom/commonLight.fs",
-			"settings":
-			{
-				"buffer_size": 642,
+				"buffer_size": 569,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "shader/Bloom/Light.fs",
+			"file": "shader/Deferred/ssaoItem.fs",
 			"settings":
 			{
-				"buffer_size": 331,
+				"buffer_size": 682,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "shader/Bloom/Screen.fs",
+			"file": "shader/Deferred/GenSSAO.fs",
 			"settings":
 			{
-				"buffer_size": 210,
+				"buffer_size": 1432,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "shader/Bloom/Screen.vs",
+			"file": "shader/Deferred/GenSSAO.vs",
+			"settings":
+			{
+				"buffer_size": 258,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "shader/Deferred/simple.fs",
+			"settings":
+			{
+				"buffer_size": 109,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "shader/Deferred/simple.vs",
+			"settings":
+			{
+				"buffer_size": 243,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "shader/Deferred/Screen.vs",
 			"settings":
 			{
 				"buffer_size": 256,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "shader/Deferred/DefferdShading.fs",
+			"settings":
+			{
+				"buffer_size": 1191,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "shader/Bloom/commonLight.vs",
+			"file": "shader/Deferred/DefferdShading.vs",
 			"settings":
 			{
-				"buffer_size": 455,
+				"buffer_size": 258,
 				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "shader/Deferred/Screen.fs",
+			"settings":
+			{
+				"buffer_size": 210,
 				"line_ending": "Windows"
 			}
 		}
@@ -337,6 +372,7 @@
 		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/Blend",
 		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/Bloom",
 		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/CubeMap",
+		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/Deferred",
 		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/FrameBuffer",
 		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/Geometry",
 		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/InstanceDraw",
@@ -349,6 +385,13 @@
 	],
 	"file_history":
 	[
+		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/Bloom/commonLight.vs",
+		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/Bloom/Bloom.fs",
+		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/Bloom/BlurScreen.fs",
+		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/Bloom/Screen.vs",
+		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/Bloom/Screen.fs",
+		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/Bloom/Light.fs",
+		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/Bloom/commonLight.fs",
 		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/Bloom/shader.fs",
 		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/MoreTexture/NormalTexture.fs",
 		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/MoreTexture/NormalTexture.vs",
@@ -469,13 +512,11 @@
 		"/D/Work/Doc/Temp.cpp",
 		"/C/Users/zhouhefan/Downloads/WonderLocal/config/render/shader/shader_libs.json",
 		"/C/Users/zhouhefan/Downloads/WonderLocal/config/render/shader/shaders.json",
-		"/C/Users/zhouhefan/Desktop/TestCrash.cpp",
-		"/C/Users/zhouhefan/Downloads/WonderLocal/wd.js",
-		"/D/Work/UEProject/Test1/Test1.uproject"
+		"/C/Users/zhouhefan/Desktop/TestCrash.cpp"
 	],
 	"find":
 	{
-		"height": 40.0
+		"height": 27.0
 	},
 	"find_in_files":
 	{
@@ -489,6 +530,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"TexCoords",
 			"ourTexture",
 			"float4",
 			"EncodeHeight",
@@ -528,7 +570,7 @@
 	"groups":
 	[
 		{
-			"selected": 4,
+			"selected": 2,
 			"sheets":
 			[
 				{
@@ -553,55 +595,27 @@
 							"syntax": "Packages/Text/Plain text.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 1.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 10,
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "shader/Model/CubeShader.fs",
-					"semi_transient": true,
-					"settings":
-					{
-						"buffer_size": 963,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								126,
-								91
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "shader/Bloom/commonLight.fs",
+					"file": "shader/Deferred/commonLight.fs",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 642,
+						"buffer_size": 569,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								99,
-								108
+								409,
+								409
 							]
 						],
 						"settings":
@@ -617,48 +631,20 @@
 					"type": "text"
 				},
 				{
-					"buffer": 3,
-					"file": "shader/Bloom/Light.fs",
+					"buffer": 2,
+					"file": "shader/Deferred/ssaoItem.fs",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 331,
+						"buffer_size": 682,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								128,
-								128
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 6,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "shader/Bloom/Screen.fs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 210,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								51,
-								51
+								196,
+								196
 							]
 						],
 						"settings":
@@ -673,8 +659,122 @@
 					"type": "text"
 				},
 				{
+					"buffer": 3,
+					"file": "shader/Deferred/GenSSAO.fs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1432,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								889,
+								889
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "shader/Deferred/GenSSAO.vs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 258,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								228,
+								228
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
 					"buffer": 5,
-					"file": "shader/Bloom/Screen.vs",
+					"file": "shader/Deferred/simple.fs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 109,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								48,
+								48
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "shader/Deferred/simple.vs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 243,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								60,
+								60
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 9,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "shader/Deferred/Screen.vs",
 					"semi_transient": false,
 					"settings":
 					{
@@ -685,8 +785,8 @@
 						"selection":
 						[
 							[
-								134,
-								134
+								256,
+								0
 							]
 						],
 						"settings":
@@ -701,20 +801,48 @@
 					"type": "text"
 				},
 				{
-					"buffer": 6,
-					"file": "shader/Bloom/commonLight.vs",
+					"buffer": 8,
+					"file": "shader/Deferred/DefferdShading.fs",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 455,
+						"buffer_size": 1191,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								153,
-								74
+								1076,
+								1082
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 216.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "shader/Deferred/DefferdShading.vs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 258,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								228,
+								228
 							]
 						],
 						"settings":
@@ -725,7 +853,35 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "shader/Deferred/Screen.fs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 210,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								36,
+								50
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
 					"type": "text"
 				}
 			]

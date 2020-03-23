@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\MainBloom.cpp" />
+    <ClCompile Include="src\MainDeferred.cpp" />
     <ClCompile Include="src\MainGeometryShader.cpp" />
     <ClCompile Include="src\BlendMain.cpp" />
     <ClCompile Include="src\FrameBufferMain.cpp" />
@@ -44,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\MainBloom.h" />
+    <ClInclude Include="src\MainDeferred.h" />
     <ClInclude Include="src\MainGeometryShader.h" />
     <ClInclude Include="src\BlendMain.h" />
     <ClInclude Include="src\FrameBufferMain.h" />
