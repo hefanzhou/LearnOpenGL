@@ -261,7 +261,6 @@ namespace MainDeferred
 				glm::mat4 model;
 				model = glm::translate(model, glm::vec3(0, 0, 0));
 				commonShader.SetMatrix("transformMVP", PVTrans*model);
-				commonShader.SetMatrix("transformM", model);
 				commonShader.SetMatrix("transformMV", camera->ViewMatrix*model);
 
 				planMesh.Draw(commonShader);
@@ -269,7 +268,6 @@ namespace MainDeferred
 				model = glm::mat4(1.0f);
 				model = glm::translate(model, glm::vec3(0, 0.5f, 0));
 				commonShader.SetMatrix("transformMVP", PVTrans*model);
-				commonShader.SetMatrix("transformM", model);
 				commonShader.SetMatrix("transformMV", camera->ViewMatrix*model);
 				cubeMesh.Draw(commonShader);
 
@@ -310,7 +308,7 @@ namespace MainDeferred
 			else
 			{
 				screenShader.use();
-				screenShader.SetTexture(0, "diffuseTexture", gNormal);
+				screenShader.SetTexture(0, "diffuseTexture", ssaoTexture);
 				screenMesh.Draw(screenShader);
 			}
 

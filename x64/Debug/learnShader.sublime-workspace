@@ -262,10 +262,19 @@
 			}
 		},
 		{
+			"file": "shader/Deferred/ssaoItem.vs",
+			"settings":
+			{
+				"buffer_size": 482,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
 			"file": "shader/Deferred/GenSSAO.fs",
 			"settings":
 			{
-				"buffer_size": 1432,
+				"buffer_size": 1404,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -570,7 +579,7 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 4,
 			"sheets":
 			[
 				{
@@ -598,7 +607,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 10,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
@@ -627,7 +636,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 8,
 					"type": "text"
 				},
 				{
@@ -643,8 +652,8 @@
 						"selection":
 						[
 							[
-								196,
-								196
+								549,
+								549
 							]
 						],
 						"settings":
@@ -655,24 +664,52 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
 					"buffer": 3,
-					"file": "shader/Deferred/GenSSAO.fs",
+					"file": "shader/Deferred/ssaoItem.vs",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1432,
+						"buffer_size": 482,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								889,
-								889
+								194,
+								205
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "shader/Deferred/GenSSAO.fs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1404,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1399,
+								1399
 							]
 						],
 						"settings":
@@ -685,11 +722,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
-					"buffer": 4,
+					"buffer": 5,
 					"file": "shader/Deferred/GenSSAO.vs",
 					"semi_transient": false,
 					"settings":
@@ -713,11 +750,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
-					"buffer": 5,
+					"buffer": 6,
 					"file": "shader/Deferred/simple.fs",
 					"semi_transient": false,
 					"settings":
@@ -741,11 +778,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 8,
+					"stack_index": 11,
 					"type": "text"
 				},
 				{
-					"buffer": 6,
+					"buffer": 7,
 					"file": "shader/Deferred/simple.vs",
 					"semi_transient": false,
 					"settings":
@@ -757,8 +794,8 @@
 						"selection":
 						[
 							[
-								60,
-								60
+								232,
+								236
 							]
 						],
 						"settings":
@@ -769,11 +806,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 9,
+					"stack_index": 5,
 					"type": "text"
 				},
 				{
-					"buffer": 7,
+					"buffer": 8,
 					"file": "shader/Deferred/Screen.vs",
 					"semi_transient": false,
 					"settings":
@@ -797,11 +834,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 7,
 					"type": "text"
 				},
 				{
-					"buffer": 8,
+					"buffer": 9,
 					"file": "shader/Deferred/DefferdShading.fs",
 					"semi_transient": false,
 					"settings":
@@ -825,11 +862,11 @@
 						"translation.y": 216.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
+					"stack_index": 9,
 					"type": "text"
 				},
 				{
-					"buffer": 9,
+					"buffer": 10,
 					"file": "shader/Deferred/DefferdShading.vs",
 					"semi_transient": false,
 					"settings":
@@ -853,11 +890,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
+					"stack_index": 10,
 					"type": "text"
 				},
 				{
-					"buffer": 10,
+					"buffer": 11,
 					"file": "shader/Deferred/Screen.fs",
 					"semi_transient": false,
 					"settings":
@@ -881,7 +918,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 6,
 					"type": "text"
 				}
 			]

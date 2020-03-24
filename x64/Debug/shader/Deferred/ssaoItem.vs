@@ -4,7 +4,6 @@ layout (location = 1) in vec3 aNormal;
 layout (location = 2) in vec2 aTexCoord;
 uniform mat4 transformMVP;
 uniform mat4 transformMV;
-uniform mat4 transformM;
 
 out vec2 TexCoord;
 out vec3 Normal;
@@ -14,5 +13,5 @@ void main()
     gl_Position = transformMVP*vec4(aPos, 1);
     TexCoord = aTexCoord;
     Normal = mat3(transpose(inverse(transformMV))) * aNormal;
-    FragPos = vec3(transformM*vec4(aPos, 1));
+    FragPos = vec3(transformMV*vec4(aPos, 1));
 }
