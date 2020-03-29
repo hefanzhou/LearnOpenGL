@@ -6,7 +6,7 @@
 #include <vector>
 #include "Shader.h"
 #include <assimp/types.h>
-
+#include <assimp/material.h>
 using namespace std;
 struct Vertex {
 	glm::vec3 Position;
@@ -16,12 +16,14 @@ struct Vertex {
 	glm::vec3 Bitangent;
 };
 
+
 struct TextureSlot {
 	TextureSlot() {};
 	TextureSlot(unsigned int _id, const string& _name):id(_id), name(_name) {};
 	unsigned int id;
 	string name;
 	aiString path;
+	aiTextureType textureType;
 };
 class Mesh
 {
@@ -29,6 +31,7 @@ public:
 	/*  º¯Êý  */
 	Mesh(vector<Vertex> vertices, vector<unsigned int> indices, vector<TextureSlot> textures);
 	void Draw(Shader shader);
+	void DrawWithoutTexture(Shader shader);
 	Mesh() = delete;
 
 	void SetTexture(int index, const TextureSlot &slot)

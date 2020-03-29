@@ -25,7 +25,7 @@ namespace MainDeferred
 	void GenSSAOKernel(std::vector<glm::vec3> &ssaoKernel);
 	void GenRotateNoiseTexture(GLuint &noiseTexture);
 	void GenSSAOBuffer(GLuint &ssaoFBO, GLuint &ssaoColorBuffer, int scr_width, int scr_height);
-
+	void GenBlurBuffer(GLuint &ssaoBlurFBO, GLuint &ssaoColorBufferBlur, int scr_width, int scr_height);
 
 	Camera *camera = nullptr;
 	float deltaTime = 0.0f; // 当前帧与上一帧的时间差
@@ -217,6 +217,9 @@ namespace MainDeferred
 		Shader commonShader("./shader/Deferred/ssaoitem.vs", "./shader/Deferred/ssaoitem.fs");
 		Shader DefferdShadingShader("./shader/Deferred/DefferdShading.vs", "./shader/Deferred/DefferdShading.fs");
 		Shader ssaoShader("./shader/Deferred/GenSSAO.vs", "./shader/Deferred/GenSSAO.fs");
+		Shader blurShader("./shader/Deferred/Screen.vs", "./shader/Deferred/ssaoBlur.fs");
+		Shader DefferShader("./shader/Deferred/Screen.vs", "./shader/Deferred/SSAODefferdShading.fs");
+		
 
 		camera = new Camera(glm::vec3(0, 2, -5), 0, -20, 45.0f, (float)screenWidth / screenHeight);
 		glEnable(GL_DEPTH_TEST);
@@ -244,6 +247,10 @@ namespace MainDeferred
 		GenSSAOBuffer(ssaoBuffer, ssaoTexture, screenWidth, screenHeight);
 		vector<glm::vec3> simples;
 		GenSSAOKernel(simples);
+		GLuint gBlurBuffer = 0;
+		GLuint blurTexture = 0;
+		GenBlurBuffer(gBlurBuffer, blurTexture, screenWidth, screenHeight);
+		Model nanoSuitModel("./res/model/nanosuit/nanosuit.obj");
 		while (!glfwWindowShouldClose(window))
 		{
 			UpdateTime();
@@ -269,8 +276,8 @@ namespace MainDeferred
 				model = glm::translate(model, glm::vec3(0, 0.5f, 0));
 				commonShader.SetMatrix("transformMVP", PVTrans*model);
 				commonShader.SetMatrix("transformMV", camera->ViewMatrix*model);
-				cubeMesh.Draw(commonShader);
-
+				//cubeMesh.Draw(commonShader);
+				nanoSuitModel.Draw(commonShader);
 			}
 
 			//ssao
@@ -293,22 +300,34 @@ namespace MainDeferred
 				screenMesh.Draw(ssaoShader);
 			}
 
+			//模糊
+			{
+				glBindFramebuffer(GL_FRAMEBUFFER, gBlurBuffer);
+				glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+				blurShader.use();
+				blurShader.SetTexture(0, "ssaoInput", ssaoTexture);
+				screenMesh.Draw(blurShader);
+			}
+
 			//着色
 			glBindFramebuffer(GL_FRAMEBUFFER, 0);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-			if (false)
+			if (true)
 			{
-				DefferdShadingShader.use();
-				DefferdShadingShader.SetTexture(0, "gPosition", gPosition);
-				DefferdShadingShader.SetTexture(1, "gNormal", gNormal);
-				DefferdShadingShader.SetTexture(2, "gAlbedoSpec", gAlbedoSpec);
-				DefferdShadingShader.SetVec3("viewPos", camera->Position);
-				screenMesh.Draw(DefferdShadingShader);
+				DefferShader.use();
+				DefferShader.SetTexture(0, "gPositionDepth", gPosition);
+				DefferShader.SetTexture(1, "gNormal", gNormal);
+				DefferShader.SetTexture(2, "gAlbedo", gAlbedoSpec);
+				DefferShader.SetTexture(3, "ssao", blurTexture);
+				DefferShader.SetVec3("light.Position", LightPos);
+				DefferShader.SetVec3("light.Color", lightColor);
+				screenMesh.Draw(DefferShader);
+
 			}
 			else
 			{
 				screenShader.use();
-				screenShader.SetTexture(0, "diffuseTexture", ssaoTexture);
+				screenShader.SetTexture(0, "diffuseTexture", blurTexture);
 				screenMesh.Draw(screenShader);
 			}
 
@@ -389,6 +408,18 @@ namespace MainDeferred
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, ssaoColorBuffer, 0);
+	}
+
+	void GenBlurBuffer(GLuint &ssaoBlurFBO, GLuint &ssaoColorBufferBlur, int scr_width, int scr_height)
+	{
+		glGenFramebuffers(1, &ssaoBlurFBO);
+		glBindFramebuffer(GL_FRAMEBUFFER, ssaoBlurFBO);
+		glGenTextures(1, &ssaoColorBufferBlur);
+		glBindTexture(GL_TEXTURE_2D, ssaoColorBufferBlur);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, scr_width, scr_height, 0, GL_RGB, GL_FLOAT, NULL);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, ssaoColorBufferBlur, 0);
 	}
 
 	void GenFreamBuffer(GLuint &gBuffer, GLuint &gPosition, GLuint &gNormal, GLuint &gAlbedoSpec,int scr_width, int scr_height)

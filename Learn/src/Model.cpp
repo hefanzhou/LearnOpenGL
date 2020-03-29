@@ -120,6 +120,7 @@ vector<TextureSlot> Model::loadMaterialTextures(aiMaterial * mat, aiTextureType 
 			texture.id = TextureFromFile(str.C_Str(), directory);
 			texture.name = typeName+std::to_string(i);
 			texture.path = str.C_Str();
+			texture.textureType = type;
 			textures.push_back(texture);
 			textures_loaded.push_back(texture); // 添加到已加载的纹理中
 		}
