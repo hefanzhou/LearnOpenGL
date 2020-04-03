@@ -1,71 +1,8 @@
-﻿  BlendMain.cpp
-d:\work\opengl\project\learn\learn\src\mesh.h(52): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
-  FrameBufferMain.cpp
-d:\work\opengl\project\learn\learn\src\mesh.h(52): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
-d:\windows kits\10\include\10.0.17763.0\shared\minwindef.h(130): warning C4005: 'APIENTRY': macro redefinition
-  d:\work\opengl\project\learn\learn\src\glad\glad.h(32): note: see previous definition of 'APIENTRY'
-d:\work\opengl\project\learn\learn\src\framebuffermain.cpp(229): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-d:\work\opengl\project\learn\learn\src\framebuffermain.cpp(230): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-  MainBloom.cpp
-d:\work\opengl\project\learn\learn\src\mesh.h(52): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
-  MainCube.cpp
-d:\work\opengl\project\learn\learn\src\mesh.h(52): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
-  MainDeferred.cpp
-d:\work\opengl\project\learn\learn\src\mesh.h(52): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
-d:\work\opengl\project\learn\learn\src\maindeferred.cpp(101): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
-d:\work\opengl\project\learn\learn\src\maindeferred.cpp(102): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
-d:\work\opengl\project\learn\learn\src\maindeferred.cpp(103): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
-d:\work\opengl\project\learn\learn\src\maindeferred.cpp(106): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
-d:\work\opengl\project\learn\learn\src\maindeferred.cpp(107): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
-d:\work\opengl\project\learn\learn\src\maindeferred.cpp(108): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
-d:\work\opengl\project\learn\learn\src\maindeferred.cpp(369): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
-  MainGeometryShader.cpp
-d:\work\opengl\project\learn\learn\src\mesh.h(52): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
-  MainInstanceDraw.cpp
-d:\work\opengl\project\learn\learn\src\mesh.h(52): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
-d:\work\opengl\project\learn\learn\src\maininstancedraw.cpp(85): warning C4312: 'type cast': conversion from 'GLsizei' to 'void *' of greater size
-d:\work\opengl\project\learn\learn\src\maininstancedraw.cpp(87): warning C4312: 'type cast': conversion from 'GLsizei' to 'void *' of greater size
-d:\work\opengl\project\learn\learn\src\maininstancedraw.cpp(89): warning C4312: 'type cast': conversion from 'GLsizei' to 'void *' of greater size
-d:\work\opengl\project\learn\learn\src\maininstancedraw.cpp(111): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-d:\work\opengl\project\learn\learn\src\maininstancedraw.cpp(160): warning C4244: 'argument': conversion from 'double' to 'unsigned int', possible loss of data
-d:\work\opengl\project\learn\learn\src\maininstancedraw.cpp(177): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-d:\work\opengl\project\learn\learn\src\maininstancedraw.cpp(181): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-  MainMoreTexture.cpp
-d:\work\opengl\project\learn\learn\src\mesh.h(52): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
-  MainShadow.cpp
-d:\work\opengl\project\learn\learn\src\mesh.h(52): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
-d:\work\opengl\project\learn\learn\src\mainshadow.cpp(499): warning C4244: 'argument': conversion from 'double' to 'unsigned int', possible loss of data
-d:\work\opengl\project\learn\learn\src\mainshadow.cpp(516): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-d:\work\opengl\project\learn\learn\src\mainshadow.cpp(520): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-  Mesh.cpp
-d:\work\opengl\project\learn\learn\src\mesh.h(52): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
-  Model.cpp
-d:\work\opengl\project\learn\learn\src\mesh.h(52): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
-  ModelMain.cpp
-d:\work\opengl\project\learn\learn\src\mesh.h(52): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
-  Test.cpp
-d:\work\opengl\project\learn\learn\src\mesh.h(52): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
-d:\work\opengl\project\learn\learn\src\test.cpp(127): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
-d:\work\opengl\project\learn\learn\src\test.cpp(389): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
-d:\work\opengl\project\learn\learn\src\test.cpp(390): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
-d:\work\opengl\project\learn\learn\src\test.cpp(394): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
-d:\work\opengl\project\learn\learn\src\test.cpp(395): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
-d:\work\opengl\project\learn\learn\src\test.cpp(397): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
-d:\work\opengl\project\learn\learn\src\test.cpp(398): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
-d:\work\opengl\project\learn\learn\src\test.cpp(405): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-  Utility.cpp
-d:\work\opengl\project\learn\learn\src\mesh.h(52): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
-d:\work\opengl\project\learn\learn\src\utility.cpp(138): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-d:\work\opengl\project\learn\learn\src\utility.cpp(139): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-d:\work\opengl\project\learn\learn\src\utility.cpp(140): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-d:\work\opengl\project\learn\learn\src\utility.cpp(141): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-  Generating Code...
+﻿  MainPBR.cpp
+d:\work\opengl\project\learn\learn\src\mesh.h(51): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+d:\work\opengl\project\learn\learn\src\mainpbr.cpp(93): warning C4305: 'initializing': truncation from 'double' to 'float'
+d:\work\opengl\project\learn\learn\src\mainpbr.cpp(102): warning C4477: 'sprintf_s' : format string '%d' requires an argument of type 'int', but variadic argument 1 has type 'size_t'
+  d:\work\opengl\project\learn\learn\src\mainpbr.cpp(102): note: consider using '%zd' in the format string
+d:\work\opengl\project\learn\learn\src\mainpbr.cpp(104): warning C4477: 'sprintf_s' : format string '%d' requires an argument of type 'int', but variadic argument 1 has type 'size_t'
+  d:\work\opengl\project\learn\learn\src\mainpbr.cpp(104): note: consider using '%zd' in the format string
   Learn.vcxproj -> D:\Work\OpenGL\Project\Learn\x64\Debug\Learn.exe

@@ -239,50 +239,33 @@
 			"file": "out.txt",
 			"settings":
 			{
-				"buffer_size": 0,
+				"buffer_size": 2052515,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "shader/Deferred/GenSSAO.fs",
+			"file": "shader/PBR/PBRCommon.fs",
 			"settings":
 			{
-				"buffer_size": 1702,
+				"buffer_size": 40,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "/D/Download/HEU_KMS_Activator_v11.1.0/激活工具误报病毒问题.txt",
+			"file": "shader/Light/shader.vs",
 			"settings":
 			{
-				"buffer_size": 475,
-				"encoding": "Western (Windows 1252)",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "shader/Deferred/GenSSAO.vs",
-			"settings":
-			{
-				"buffer_size": 258,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "shader/Deferred/ssaoItem.vs",
-			"settings":
-			{
-				"buffer_size": 458,
+				"buffer_size": 455,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "shader/Deferred/ssaoItem.fs",
+			"file": "shader/PBR/PBRCommon.vs",
 			"settings":
 			{
-				"buffer_size": 682,
+				"buffer_size": 455,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -335,17 +318,22 @@
 		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/Light",
 		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/Model",
 		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/MoreTexture",
+		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/PBR",
 		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/Shadow",
 		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/ShadowVSM",
 		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/Test"
 	],
 	"file_history":
 	[
-		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/Deferred/commonLight.fs",
+		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/Deferred/SSAODefferdShading.fs",
+		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/Deferred/ssaoBlur.fs",
 		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/Deferred/ssaoItem.fs",
 		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/Deferred/ssaoItem.vs",
-		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/Deferred/GenSSAO.fs",
 		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/Deferred/GenSSAO.vs",
+		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/Deferred/GenSSAO.fs",
+		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/PBR/EadgeShader.fs",
+		"/D/Download/HEU_KMS_Activator_v11.1.0/激活工具误报病毒问题.txt",
+		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/Deferred/commonLight.fs",
 		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/Deferred/simple.fs",
 		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/Deferred/simple.vs",
 		"/D/Work/OpenGL/Project/Learn/x64/Debug/shader/Deferred/Screen.vs",
@@ -464,11 +452,7 @@
 		"/D/Work/UnityProject/LrarnPBR/Assets/Scenes/Learn1/TestReplace.shader",
 		"/D/Work/UnityProject/LrarnPBR/Assets/Scenes/Learn1/TestBeReplace.shader",
 		"/D/Work/UnityProject/LrarnPBR/Assets/Scenes/Learn1/Deferred_Forward.shader",
-		"/D/Work/UnityProject/builtin_shaders-2018.3.14f1/DefaultResourcesExtra/Standard.shader",
-		"/D/Work/UnityProject/builtin_shaders-2018.3.14f1/CGIncludes/UnityStandardCore.cginc",
-		"/D/Work/UnityProject/builtin_shaders-2018.3.14f1/CGIncludes/UnityBuiltin3xTreeLibrary.cginc",
-		"/D/Work/UnityProject/builtin_shaders-2018.3.14f1/CGIncludes/TerrainSplatmapCommon.cginc",
-		"/D/Work/UnityProject/builtin_shaders-2018.3.14f1/CGIncludes/UnityInstancing.cginc"
+		"/D/Work/UnityProject/builtin_shaders-2018.3.14f1/DefaultResourcesExtra/Standard.shader"
 	],
 	"find":
 	{
@@ -535,7 +519,7 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 0,
+						"buffer_size": 2052515,
 						"regions":
 						{
 						},
@@ -554,34 +538,32 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "shader/Deferred/GenSSAO.fs",
+					"file": "shader/PBR/PBRCommon.fs",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1702,
+						"buffer_size": 40,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1668,
-								1668
+								40,
+								40
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/C++/C++.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
+							"syntax": "Packages/C++/C++.sublime-syntax"
 						},
 						"translation.x": 0.0,
-						"translation.y": 54.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
@@ -589,24 +571,24 @@
 				},
 				{
 					"buffer": 2,
-					"file": "/D/Download/HEU_KMS_Activator_v11.1.0/激活工具误报病毒问题.txt",
-					"semi_transient": false,
+					"file": "shader/Light/shader.vs",
+					"semi_transient": true,
 					"settings":
 					{
-						"buffer_size": 475,
+						"buffer_size": 455,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								455,
+								455
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
+							"syntax": "Packages/C++/C++.sublime-syntax"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -617,82 +599,24 @@
 				},
 				{
 					"buffer": 3,
-					"file": "shader/Deferred/GenSSAO.vs",
+					"file": "shader/PBR/PBRCommon.vs",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 258,
+						"buffer_size": 455,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								346,
+								346
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/C++/C++.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "shader/Deferred/ssaoItem.vs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 458,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								414,
-								421
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "shader/Deferred/ssaoItem.fs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 682,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								564,
-								576
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,

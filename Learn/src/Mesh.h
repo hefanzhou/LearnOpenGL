@@ -30,8 +30,7 @@ class Mesh
 public:
 	/*  º¯Êý  */
 	Mesh(vector<Vertex> vertices, vector<unsigned int> indices, vector<TextureSlot> textures);
-	void Draw(Shader shader);
-	void DrawWithoutTexture(Shader shader);
+	void Draw(const Shader& shader);
 	Mesh() = delete;
 
 	void SetTexture(int index, const TextureSlot &slot)
@@ -59,6 +58,10 @@ public:
 	/*  º¯Êý  */
 	void setupMesh();
 
+	void SetDrawMode(GLenum _drawMode)
+	{
+		drawMode = _drawMode;
+	}
 private:
 	unsigned int VAO, VBO, EBO;
 	bool enableTangent;
@@ -67,6 +70,6 @@ private:
 	vector<Vertex> vertices;
 	vector<unsigned int> indices;
 	vector<TextureSlot> textures;
-
+	GLenum drawMode;
 };
 

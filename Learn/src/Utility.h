@@ -10,4 +10,5 @@ shared_ptr<Mesh> GetCubeMesh();
 Mesh GetPlanMesh(int sizex, int sizez, int gridCountX, int gridCountZ);
 Mesh GetScreenMesh();
 void LoadCubeTexture(unsigned int &textureID, vector<string> faces);
+shared_ptr<Mesh> GetSphereMesh();
 

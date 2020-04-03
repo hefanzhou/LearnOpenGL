@@ -11,8 +11,9 @@
 #include "MainMoreTexture.h"
 #include "MainBloom.h"
 #include "MainDeferred.h"
+#include "MainPBR.h"
 int main()
 {
-	MainDeferred::main();
+	MainPBR::main();
 	return 0;
 }

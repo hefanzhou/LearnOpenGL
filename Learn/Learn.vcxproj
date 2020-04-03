@@ -27,6 +27,7 @@
     <ClCompile Include="src\MainCube.cpp" />
     <ClCompile Include="src\MainInstanceDraw.cpp" />
     <ClCompile Include="src\MainMoreTexture.cpp" />
+    <ClCompile Include="src\MainPBR.cpp" />
     <ClCompile Include="src\MainShadow.cpp" />
     <ClCompile Include="src\Model.cpp" />
     <ClCompile Include="src\Mesh.cpp" />
@@ -52,6 +53,7 @@
     <ClInclude Include="src\MainCube.h" />
     <ClInclude Include="src\MainInstanceDraw.h" />
     <ClInclude Include="src\MainMoreTexture.h" />
+    <ClInclude Include="src\MainPBR.h" />
     <ClInclude Include="src\MainShadow.h" />
     <ClInclude Include="src\Model.h" />
     <ClInclude Include="src\Mesh.h" />

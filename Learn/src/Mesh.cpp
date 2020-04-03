@@ -3,7 +3,7 @@
 #include <sstream>
 #include <iostream>
 
-Mesh::Mesh(vector<Vertex> vertices, vector<unsigned int> indices, vector<TextureSlot> textures)
+Mesh::Mesh(vector<Vertex> vertices, vector<unsigned int> indices, vector<TextureSlot> textures):drawMode(GL_TRIANGLES)
 {
 	this->vertices = vertices;
 	this->indices = indices;
@@ -47,7 +47,7 @@ void Mesh::setupMesh()
 	glBindVertexArray(0);
 }
 
-void Mesh::Draw(Shader shader)
+void Mesh::Draw(const Shader& shader)
 {
 	for (unsigned int i = 0; i < textures.size(); i++)
 	{
@@ -58,14 +58,6 @@ void Mesh::Draw(Shader shader)
 	glActiveTexture(GL_TEXTURE0);
 	// »æÖÆÍø¸ñ
 	glBindVertexArray(VAO);
-	glDrawElements(GL_TRIANGLES, (GLsizei)indices.size(), GL_UNSIGNED_INT, 0);
-	glBindVertexArray(0);
-}
-
-void Mesh::DrawWithoutTexture(Shader shader)
-{
-
-	glBindVertexArray(VAO);
-	glDrawElements(GL_TRIANGLES, (GLsizei)indices.size(), GL_UNSIGNED_INT, 0);
+	glDrawElements(drawMode, (GLsizei)indices.size(), GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);
 }

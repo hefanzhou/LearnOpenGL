@@ -17,6 +17,8 @@ bool CheckError(std::string info)
 namespace
 {
 	shared_ptr<Mesh> GlobalCubeMesh;
+
+	shared_ptr<Mesh> GlobalSphereMesh;
 }
 
 shared_ptr<Mesh> GetCubeMesh()
@@ -96,6 +98,60 @@ shared_ptr<Mesh> GetCubeMesh()
 	GlobalCubeMesh = make_shared<Mesh>(vertexList, indices, textures);
 
 	return GlobalCubeMesh;
+}
+
+shared_ptr<Mesh> GetSphereMesh()
+{
+	if (GlobalSphereMesh) return GlobalSphereMesh;
+	const unsigned int X_SEGMENTS = 64;
+	const unsigned int Y_SEGMENTS = 64;
+	const float PI = 3.14159265359;
+	vector<Vertex> vertexList;
+	for (unsigned int y = 0; y <= Y_SEGMENTS; ++y)
+	{
+		for (unsigned int x = 0; x <= X_SEGMENTS; ++x)
+		{
+			float xSegment = (float)x / (float)X_SEGMENTS;
+			float ySegment = (float)y / (float)Y_SEGMENTS;
+			float xPos = std::cos(xSegment * 2.0f * PI) * std::sin(ySegment * PI);
+			float yPos = std::cos(ySegment * PI);
+			float zPos = std::sin(xSegment * 2.0f * PI) * std::sin(ySegment * PI);
+			Vertex vertex;
+			vertex.Position = glm::vec3(xPos, yPos, zPos);
+			vertex.TexCoords = glm::vec2(xSegment, ySegment);
+			vertex.Normal = glm::vec3(xPos, yPos, zPos);
+			vertexList.push_back(vertex);
+		}
+	}
+
+	bool oddRow = false;
+	vector<unsigned int> indices;
+	for (unsigned int y = 0; y < Y_SEGMENTS; ++y)
+	{
+		if (!oddRow) // even rows: y == 0, y == 2; and so on
+		{
+			for (unsigned int x = 0; x <= X_SEGMENTS; ++x)
+			{
+				indices.push_back(y       * (X_SEGMENTS + 1) + x);
+				indices.push_back((y + 1) * (X_SEGMENTS + 1) + x);
+			}
+		}
+		else
+		{
+			for (int x = X_SEGMENTS; x >= 0; --x)
+			{
+				indices.push_back((y + 1) * (X_SEGMENTS + 1) + x);
+				indices.push_back(y       * (X_SEGMENTS + 1) + x);
+			}
+		}
+		oddRow = !oddRow;
+	}
+	
+	vector<TextureSlot> textures;
+	GlobalSphereMesh = make_shared<Mesh>(vertexList, indices, textures);
+	GlobalSphereMesh->SetDrawMode(GL_TRIANGLE_STRIP);
+
+	return GlobalSphereMesh;
 }
 
 Mesh GetPlanMesh(int sizex, int sizez, int gridCountX, int gridCountZ)
