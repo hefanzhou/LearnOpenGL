@@ -19,8 +19,13 @@ namespace MainPBR
 	void UpdateTime();
 	void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 	void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
-	void GenCubeMapBuffer(unsigned int &captureFBO, unsigned int &envCubemap, int width, int height);
+	void GenCubeMapBuffer(unsigned int &captureFBO, unsigned int &captureRBO, unsigned int &envCubemap, int width, int height);
 	void RenderToCubeMapSideBySide(const unsigned int captureFBO, const unsigned int cubeMapId, int width, int height, Shader &shader);
+	void RenderPrefiterCubeMap(const unsigned int captureFBO, 
+		const unsigned int captureRBO, 
+		const unsigned int envCubemap, 
+		const unsigned int cubeMapId, 
+		int resolution);
 
 	Camera *camera = nullptr;
 	float deltaTime = 0.0f; // 当前帧与上一帧的时间差
@@ -86,7 +91,8 @@ namespace MainPBR
 			
 			Shader rectToCubeMapShdaer("./shader/PBR/RectToCubeMap.vs", "./shader/PBR/RectToCubeMap.fs");
 			unsigned int captureFBO = 0;
-			GenCubeMapBuffer(captureFBO, envCubemap, envCubeMapWidth, envCubeMapHeight);
+			unsigned int captureRBO = 0;
+			GenCubeMapBuffer(captureFBO, captureRBO, envCubemap, envCubeMapWidth, envCubeMapHeight);
 			rectToCubeMapShdaer.use();
 			rectToCubeMapShdaer.SetTexture(0, "equirectangularMap", envRectTextureID);
 			RenderToCubeMapSideBySide(captureFBO, envCubemap, envCubeMapWidth, envCubeMapHeight, rectToCubeMapShdaer);
@@ -97,12 +103,24 @@ namespace MainPBR
 		{
 			Shader GenIBLDiffuseShdaer("./shader/PBR/GenIBLDiffuse.vs", "./shader/PBR/GenIBLDiffuse.fs");
 			unsigned int captureFBO = 0;
+			unsigned int captureRBO = 0;
 			int resolution = 32;
-			GenCubeMapBuffer(captureFBO, IBLDiffuseCubeMapId, resolution, resolution);
+			GenCubeMapBuffer(captureFBO, captureRBO, IBLDiffuseCubeMapId, resolution, resolution);
 			GenIBLDiffuseShdaer.use();
 			GenIBLDiffuseShdaer.SetTexture(0, "irradianceMap", envCubemap, GL_TEXTURE_CUBE_MAP);
 
 			RenderToCubeMapSideBySide(captureFBO, IBLDiffuseCubeMapId, resolution, resolution, GenIBLDiffuseShdaer);
+		}
+
+		//镜面发射IBL部分1
+		unsigned int IBLSpecualCubeMapId = 0;
+		{
+			int resolution = 128;
+			unsigned int captureFBO = 0;
+			unsigned int captureRBO = 0;
+			GenCubeMapBuffer(captureFBO, captureRBO, IBLSpecualCubeMapId, resolution, resolution);
+			glGenerateMipmap(GL_TEXTURE_CUBE_MAP);
+			RenderPrefiterCubeMap(captureFBO, captureRBO, envCubemap, IBLSpecualCubeMapId, resolution);
 		}
 
 
@@ -138,15 +156,17 @@ namespace MainPBR
 			//全景图
 			{
 				cubeMapShader.use();
+				CheckError();
 				glm::mat4 CameraViewNoTranslate = glm::mat4(glm::mat3(camera->ViewMatrix));
 				cubeMapShader.SetMatrix("transformVP", camera->PerspectiveMatrix*CameraViewNoTranslate);
-				cubeMapShader.SetTexture(0, "texture_diffuse", envCubemap, GL_TEXTURE_CUBE_MAP);
+				cubeMapShader.SetTexture(0, "texture_diffuse", IBLSpecualCubeMapId, GL_TEXTURE_CUBE_MAP);
+				CheckError();
 				cubeMesh->Draw(cubeMapShader);
-
+				CheckError();
 			}
 
 			//PBR
-			//if(false)
+			if(false)
 			{
 				int count = 10;
 				float offset = 2.1;
@@ -178,10 +198,6 @@ namespace MainPBR
 					}
 				}
 			}
-			{
-				
-			}
-
 
 			glfwSwapBuffers(window);
 			glfwPollEvents();
@@ -260,9 +276,9 @@ namespace MainPBR
 		camera->ProcessMouseScroll((float)yoffset);
 	}
 
-	void GenCubeMapBuffer(unsigned int &captureFBO, unsigned int &envCubemap, int width, int height)
+	void GenCubeMapBuffer(unsigned int &captureFBO, unsigned int &captureRBO, unsigned int &envCubemap, int width, int height)
 	{
-		unsigned int captureRBO;
+		
 		glGenFramebuffers(1, &captureFBO);
 		glGenRenderbuffers(1, &captureRBO);
 
@@ -286,21 +302,20 @@ namespace MainPBR
 		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	}
 
+	glm::mat4 captureProjection = glm::perspective(glm::radians(90.0f), 1.0f, 0.1f, 10.0f);
+	glm::mat4 captureViews[] =
+	{
+	   glm::lookAt(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f,  0.0f,  0.0f), glm::vec3(0.0f, -1.0f,  0.0f)),
+	   glm::lookAt(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(-1.0f,  0.0f,  0.0f), glm::vec3(0.0f, -1.0f,  0.0f)),
+	   glm::lookAt(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f,  1.0f,  0.0f), glm::vec3(0.0f,  0.0f,  1.0f)),
+	   glm::lookAt(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, -1.0f,  0.0f), glm::vec3(0.0f,  0.0f, -1.0f)),
+	   glm::lookAt(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f,  0.0f,  1.0f), glm::vec3(0.0f, -1.0f,  0.0f)),
+	   glm::lookAt(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f,  0.0f, -1.0f), glm::vec3(0.0f, -1.0f,  0.0f))
+	};
+
 	void RenderToCubeMapSideBySide(const unsigned int captureFBO,  const unsigned int cubeMapId, int width, int height, Shader &shader)
 	{
 		auto cube = GetCubeMesh();
-		glm::mat4 captureProjection = glm::perspective(glm::radians(90.0f), 1.0f, 0.1f, 10.0f);
-		glm::mat4 captureViews[] =
-		{
-		   glm::lookAt(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f,  0.0f,  0.0f), glm::vec3(0.0f, -1.0f,  0.0f)),
-		   glm::lookAt(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(-1.0f,  0.0f,  0.0f), glm::vec3(0.0f, -1.0f,  0.0f)),
-		   glm::lookAt(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f,  1.0f,  0.0f), glm::vec3(0.0f,  0.0f,  1.0f)),
-		   glm::lookAt(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, -1.0f,  0.0f), glm::vec3(0.0f,  0.0f, -1.0f)),
-		   glm::lookAt(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f,  0.0f,  1.0f), glm::vec3(0.0f, -1.0f,  0.0f)),
-		   glm::lookAt(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f,  0.0f, -1.0f), glm::vec3(0.0f, -1.0f,  0.0f))
-		};
-
-
 		shader.SetMatrix("projection", captureProjection);
 
 		glViewport(0, 0, width, height);
@@ -314,6 +329,39 @@ namespace MainPBR
 
 			cube->Draw(shader);
 		}
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	}
+
+	void RenderPrefiterCubeMap(const unsigned int captureFBO, const unsigned int captureRBO, const unsigned int envCubemap, const unsigned int cubeMapId, int resolution)
+	{
+		auto cube = GetCubeMesh();
+		Shader IBLPrefilterShdaer("./shader/PBR/IBLPrefilter.vs", "./shader/PBR/IBLPrefilter.fs");
+		IBLPrefilterShdaer.use();
+		IBLPrefilterShdaer.SetMatrix("projection", captureProjection);
+		IBLPrefilterShdaer.SetTexture(0, "environmentMap", envCubemap, GL_TEXTURE_CUBE_MAP);
+		glBindFramebuffer(GL_FRAMEBUFFER, captureFBO);
+
+		unsigned int maxMipLevels = 5;
+		for (unsigned int mip = 0; mip < maxMipLevels; ++mip)
+		{
+			// reisze framebuffer according to mip-level size.
+			unsigned int mipResolution = resolution * std::pow(0.5, mip);
+			glBindRenderbuffer(GL_RENDERBUFFER, captureRBO);
+			glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT24, mipResolution, mipResolution);
+			glViewport(0, 0, mipResolution, mipResolution);
+
+			float roughness = (float)mip / (float)(maxMipLevels - 1);
+			IBLPrefilterShdaer.setFloat("roughness", roughness);
+			for (unsigned int i = 0; i < 6; ++i)
+			{
+				IBLPrefilterShdaer.SetMatrix("view", captureViews[i]);
+				glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0,
+					GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, cubeMapId, mip);
+				glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+				cube->Draw(IBLPrefilterShdaer);
+			}
+		}
+
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
 }
