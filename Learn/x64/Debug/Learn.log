@@ -1,8 +1,8 @@
 ﻿  MainPBR.cpp
 d:\work\opengl\project\learn\learn\src\mesh.h(51): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
-d:\work\opengl\project\learn\learn\src\mainpbr.cpp(93): warning C4305: 'initializing': truncation from 'double' to 'float'
-d:\work\opengl\project\learn\learn\src\mainpbr.cpp(102): warning C4477: 'sprintf_s' : format string '%d' requires an argument of type 'int', but variadic argument 1 has type 'size_t'
-  d:\work\opengl\project\learn\learn\src\mainpbr.cpp(102): note: consider using '%zd' in the format string
-d:\work\opengl\project\learn\learn\src\mainpbr.cpp(104): warning C4477: 'sprintf_s' : format string '%d' requires an argument of type 'int', but variadic argument 1 has type 'size_t'
-  d:\work\opengl\project\learn\learn\src\mainpbr.cpp(104): note: consider using '%zd' in the format string
+d:\work\opengl\project\learn\learn\src\mainpbr.cpp(152): warning C4305: 'initializing': truncation from 'double' to 'float'
+d:\work\opengl\project\learn\learn\src\mainpbr.cpp(161): warning C4477: 'sprintf_s' : format string '%d' requires an argument of type 'int', but variadic argument 1 has type 'size_t'
+  d:\work\opengl\project\learn\learn\src\mainpbr.cpp(161): note: consider using '%zd' in the format string
+d:\work\opengl\project\learn\learn\src\mainpbr.cpp(163): warning C4477: 'sprintf_s' : format string '%d' requires an argument of type 'int', but variadic argument 1 has type 'size_t'
+  d:\work\opengl\project\learn\learn\src\mainpbr.cpp(163): note: consider using '%zd' in the format string
   Learn.vcxproj -> D:\Work\OpenGL\Project\Learn\x64\Debug\Learn.exe
