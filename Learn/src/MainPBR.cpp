@@ -21,6 +21,8 @@ namespace MainPBR
 	void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 	void GenCubeMapBuffer(unsigned int &captureFBO, unsigned int &captureRBO, unsigned int &envCubemap, int width, int height);
 	void RenderToCubeMapSideBySide(const unsigned int captureFBO, const unsigned int cubeMapId, int width, int height, Shader &shader);
+	void GenerateSpecualBRDFLutTexture(unsigned int &brdfLUTTexture, int resourlution, unsigned int captureFBO, unsigned int captureRBO);
+
 	void RenderPrefiterCubeMap(const unsigned int captureFBO, 
 		const unsigned int captureRBO, 
 		const unsigned int envCubemap, 
@@ -72,18 +74,26 @@ namespace MainPBR
 		glfwSetScrollCallback(window, scroll_callback);
 		camera = new Camera(glm::vec3(0, 0, -30), 0, 0, 45.0f, (float)screenWidth / screenHeight);
 
-		Shader ColorShader("./shader/PBR/simple.vs", "./shader/PBR/simple.fs");
+		Shader TextureShader("./shader/PBR/simple.vs", "./shader/PBR/simple.fs");
 		Shader pbrShader("./shader/PBR/PBRCommon.vs", "./shader/PBR/PBRCommon.fs");
+		Shader pbrModelShader("./shader/PBR/PBRCommonFBX.vs", "./shader/PBR/PBRCommonFBX.fs");
 		Shader visualNormalShader("./shader/Geometry/VisualizationNormal.vs", "./shader/Geometry/VisualizationNormal.fs", "./shader/Geometry/VisualizationNormal.gs");
 		Shader rectFullImageShdaer("./shader/PBR/RectFullImage.vs", "./shader/PBR/RectFullImage.fs");
 		Shader cubeMapShader("./shader/CubeMap/CubeMap.vs", "./shader/CubeMap/CubeMap.fs");
-	
+
+		Model gunModel("./res/Cerberus_by_Andrew_Maximov/Cerberus_LP.FBX");
+		Texture albedoTex("res/Cerberus_by_Andrew_Maximov/Textures/Cerberus_A.tga", false);
+		Texture metallicTex("res/Cerberus_by_Andrew_Maximov/Textures/Cerberus_M.tga", false);
+		Texture roughnessTex("res/Cerberus_by_Andrew_Maximov/Textures/Cerberus_R.tga", false);
+		Texture normalTex("res/Cerberus_by_Andrew_Maximov/Textures/Cerberus_N.tga", false);
 
 		auto cubeMesh = GetCubeMesh();
 		auto sphereMesh = GetSphereMesh();
+		auto planMesh = GetPlanMesh(10, 10, 2, 2);
 
 		unsigned int envRectTextureID = 0;
-		LoadHDRTexture(envRectTextureID, "./res/Malibu_Overlook/Malibu_Overlook_3k.hdr");
+		LoadHDRTexture(envRectTextureID, "./res/IBLTexture/Lobby-Center_2k.hdr");
+		//LoadHDRTexture(envRectTextureID, "./res/IBLTexture/Malibu_Overlook_3k.hdr");
 
 		unsigned int envCubemap = 0;
 		// 矩形图到立方体贴图
@@ -112,17 +122,31 @@ namespace MainPBR
 			RenderToCubeMapSideBySide(captureFBO, IBLDiffuseCubeMapId, resolution, resolution, GenIBLDiffuseShdaer);
 		}
 
-		//镜面发射IBL部分1
+		//镜面反射IBL部分1
 		unsigned int IBLSpecualCubeMapId = 0;
 		{
 			int resolution = 128;
 			unsigned int captureFBO = 0;
 			unsigned int captureRBO = 0;
+			glEnable(GL_TEXTURE_CUBE_MAP_SEAMLESS);
 			GenCubeMapBuffer(captureFBO, captureRBO, IBLSpecualCubeMapId, resolution, resolution);
+			glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 			glGenerateMipmap(GL_TEXTURE_CUBE_MAP);
 			RenderPrefiterCubeMap(captureFBO, captureRBO, envCubemap, IBLSpecualCubeMapId, resolution);
 		}
 
+		//镜面反射部分2
+		unsigned int IBLSpecualBRDFLutTextureId = 0;
+		{
+			int resolution = 512;
+			unsigned int captureFBO = 0;
+			unsigned int captureRBO = 0;
+			glGenFramebuffers(1, &captureFBO);
+			glGenRenderbuffers(1, &captureRBO);
+
+			GenerateSpecualBRDFLutTexture(IBLSpecualBRDFLutTextureId, resolution, captureFBO, captureRBO);
+
+		}
 
 		std::cout.flush();
 		glm::vec3 lightPositions[] = {
@@ -154,15 +178,25 @@ namespace MainPBR
 			glm::mat4 PVTrans = camera->GetPVMatrix();
 
 			//全景图
+			if(true)
 			{
+				auto CameraViewNoTranslate = glm::mat4(glm::mat3(camera->ViewMatrix));
 				cubeMapShader.use();
-				CheckError();
-				glm::mat4 CameraViewNoTranslate = glm::mat4(glm::mat3(camera->ViewMatrix));
 				cubeMapShader.SetMatrix("transformVP", camera->PerspectiveMatrix*CameraViewNoTranslate);
-				cubeMapShader.SetTexture(0, "texture_diffuse", IBLSpecualCubeMapId, GL_TEXTURE_CUBE_MAP);
-				CheckError();
+				cubeMapShader.SetTexture(0, "texture_diffuse", envCubemap, GL_TEXTURE_CUBE_MAP);
 				cubeMesh->Draw(cubeMapShader);
-				CheckError();
+			}
+
+			// debug texture
+			if(false)
+			{
+				TextureShader.use();
+				mat4 model;
+				model = translate(model, vec3(0, 0, 0));
+				model = glm::rotate(model, -90.0f, glm::vec3(1, 0, 0));
+				TextureShader.SetMatrix("transformMVP", PVTrans*model);
+				TextureShader.SetTexture(0, "diffsuleTexture", IBLSpecualBRDFLutTextureId);
+				planMesh.Draw(TextureShader);
 			}
 
 			//PBR
@@ -172,9 +206,13 @@ namespace MainPBR
 				float offset = 2.1;
 				pbrShader.use();
 				pbrShader.SetVec3("camPos", camera->Position);
-				pbrShader.SetVec3("albedo", vec3(1, 0, 0));
+				pbrShader.SetVec3("albedo", vec3(0.4f, 0.4f, 0.4f));
 				pbrShader.setFloat("ao", 1);
+
 				pbrShader.SetTexture(0, "irradianceMap", IBLDiffuseCubeMapId, GL_TEXTURE_CUBE_MAP);
+				pbrShader.SetTexture(1, "prefilterMap", IBLSpecualCubeMapId, GL_TEXTURE_CUBE_MAP);
+				pbrShader.SetTexture(2, "brdfLUT", IBLSpecualBRDFLutTextureId);
+
 				char strBuffer[50];
 				for (size_t i = 0; i < 4; i++)
 				{
@@ -185,20 +223,53 @@ namespace MainPBR
 				}
 				for (int i = 0; i < count; i++)
 				{
-					pbrShader.setFloat("metallic", (float)i / (count - 1));
-					pbrShader.setFloat("metallic", 0.5);
+					pbrShader.setFloat("metallic", (float)i / glm::max(count - 1, 1));
 					for (int j = 0; j < count; j++)
 					{
 						mat4 model;
 						model = translate(model, vec3((i-count/2)*offset, (j - count / 2)*offset, 0));
 						pbrShader.SetMatrix("transformMVP", PVTrans*model);
 						pbrShader.SetMatrix("transformM", model);
-						pbrShader.setFloat("roughness", (float)j / (count - 1));
+						pbrShader.setFloat("roughness", (float)j / glm::max(count - 1, 1));
 						sphereMesh->Draw(pbrShader);
 					}
 				}
 			}
 
+
+			//PBR Model
+			if (true)
+			{
+				pbrModelShader.use();
+				pbrModelShader.SetVec3("camPos", camera->Position);
+				pbrModelShader.setFloat("ao", 1);
+
+				pbrModelShader.SetTexture(0, "irradianceMap", IBLDiffuseCubeMapId, GL_TEXTURE_CUBE_MAP);
+				pbrModelShader.SetTexture(1, "prefilterMap", IBLSpecualCubeMapId, GL_TEXTURE_CUBE_MAP);
+				pbrModelShader.SetTexture(2, "brdfLUT", IBLSpecualBRDFLutTextureId);
+				pbrModelShader.SetTexture(3, "albedoTexture", albedoTex.GetTextureID());
+				pbrModelShader.SetTexture(4, "metallicTexture", metallicTex.GetTextureID());
+				pbrModelShader.SetTexture(5, "roughnessTexture", roughnessTex.GetTextureID());
+				pbrModelShader.SetTexture(6, "normalTexture", normalTex.GetTextureID());
+
+				char strBuffer[50];
+				for (size_t i = 0; i < 4; i++)
+				{
+					sprintf_s(strBuffer, "lightPositions[%d]", i);
+					pbrModelShader.SetVec3(strBuffer, lightPositions[i]);
+					sprintf_s(strBuffer, "lightColors[%d]", i);
+					pbrModelShader.SetVec3(strBuffer, lightColors[i]);
+				}
+
+				mat4 modelTrans;
+				modelTrans = translate(modelTrans, vec3(10, 0, 0));
+				modelTrans = glm::scale(modelTrans, vec3(0.3, 0.3, 0.3));
+				modelTrans = rotate(modelTrans, -pai / 2, vec3(0, 1, 0));
+				modelTrans = rotate(modelTrans, -pai /2, vec3(1, 0, 0));
+				pbrModelShader.SetMatrix("transformMVP", PVTrans*modelTrans);
+				pbrModelShader.SetMatrix("transformM", modelTrans);
+				gunModel.Draw(pbrModelShader, false);
+			}
 			glfwSwapBuffers(window);
 			glfwPollEvents();
 
@@ -361,6 +432,33 @@ namespace MainPBR
 				cube->Draw(IBLPrefilterShdaer);
 			}
 		}
+
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	}
+
+	void GenerateSpecualBRDFLutTexture(unsigned int &brdfLUTTexture, int resourlution, unsigned int captureFBO, unsigned int captureRBO)
+	{
+		glGenTextures(1, &brdfLUTTexture);
+		// pre-allocate enough memory for the LUT texture.
+		glBindTexture(GL_TEXTURE_2D, brdfLUTTexture);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RG16F, resourlution, resourlution, 0, GL_RG, GL_FLOAT, 0);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+		glBindFramebuffer(GL_FRAMEBUFFER, captureFBO);
+		glBindRenderbuffer(GL_RENDERBUFFER, captureRBO);
+		glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT24, resourlution, resourlution);
+		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, brdfLUTTexture, 0);
+
+		glViewport(0, 0, resourlution, resourlution);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		Shader shader("./shader/PBR/IBLReflectBRDF.vs", "./shader/PBR/IBLReflectBRDF.fs");
+		auto screenMesh = GetPlanMesh(2, 2, 1, 1);
+
+		shader.use();
+		screenMesh.Draw(shader);
 
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}

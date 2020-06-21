@@ -13,3 +13,10 @@ void LoadCubeTexture(unsigned int &textureID, vector<string> faces);
 void LoadHDRTexture(unsigned int &textureID, const string &path);
 shared_ptr<Mesh> GetSphereMesh();
 
+template<typename T, typename T2>
+void CopyDiffTypeVec3To(T &vec1, T2 &vec2)
+{
+	vec2.x = vec1.x;
+	vec2.y = vec1.y;
+	vec2.z = vec1.z;
+}

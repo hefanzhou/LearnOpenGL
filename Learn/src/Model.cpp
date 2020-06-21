@@ -3,16 +3,16 @@
 #include "stb_image.h"
 #include "Utility.h"
 unsigned int TextureFromFile(const char *path, const string &directory);
-void Model::Draw(Shader shader)
+void Model::Draw(Shader shader, bool useMeshTexture)
 {
 	for (unsigned int i = 0; i < meshes.size(); i++)
-		meshes[i].Draw(shader);
+		meshes[i].Draw(shader, useMeshTexture);
 }
 
 void Model::loadModel(string path)
 {
 	Assimp::Importer importer;
-	const aiScene *scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs);
+	const aiScene *scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
 
 	if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
 	{
@@ -51,15 +51,11 @@ Mesh Model::processMesh(aiMesh * mesh, const aiScene * scene)
 	{
 		// 处理顶点位置、法线和纹理坐标
 		Vertex vertex;
-		glm::vec3 vector;
-		vector.x = mesh->mVertices[i].x;
-		vector.y = mesh->mVertices[i].y;
-		vector.z = mesh->mVertices[i].z;
-		vertex.Position = vector;
-		vector.x = mesh->mNormals[i].x;
-		vector.y = mesh->mNormals[i].y;
-		vector.z = mesh->mNormals[i].z;
-		vertex.Normal = vector;
+		CopyDiffTypeVec3To(mesh->mVertices[i], vertex.Position);
+		CopyDiffTypeVec3To(mesh->mNormals[i], vertex.Normal);
+		CopyDiffTypeVec3To(mesh->mTangents[i], vertex.Tangent);
+		CopyDiffTypeVec3To(mesh->mBitangents[i], vertex.Bitangent);
+		
 
 		if (mesh->mTextureCoords[0]) // 网格是否有纹理坐标？
 		{

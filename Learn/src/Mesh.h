@@ -30,7 +30,7 @@ class Mesh
 public:
 	/*  º¯Êý  */
 	Mesh(vector<Vertex> vertices, vector<unsigned int> indices, vector<TextureSlot> textures);
-	void Draw(const Shader& shader);
+	void Draw(const Shader& shader, bool useMeshTexture = true);
 	Mesh() = delete;
 
 	void SetTexture(int index, const TextureSlot &slot)

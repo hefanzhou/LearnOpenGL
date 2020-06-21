@@ -47,15 +47,18 @@ void Mesh::setupMesh()
 	glBindVertexArray(0);
 }
 
-void Mesh::Draw(const Shader& shader)
+void Mesh::Draw(const Shader& shader, bool useMeshTexture)
 {
-	for (unsigned int i = 0; i < textures.size(); i++)
+	if (useMeshTexture)
 	{
-		glActiveTexture(GL_TEXTURE0 + i); // 在绑定之前激活相应的纹理单元
-		shader.setInt(textures[i].name.c_str(), i);
-		glBindTexture(GL_TEXTURE_2D, textures[i].id);
+		for (unsigned int i = 0; i < textures.size(); i++)
+		{
+			glActiveTexture(GL_TEXTURE0 + i); // 在绑定之前激活相应的纹理单元
+			shader.setInt(textures[i].name.c_str(), i);
+			glBindTexture(GL_TEXTURE_2D, textures[i].id);
+		}
+		glActiveTexture(GL_TEXTURE0);
 	}
-	glActiveTexture(GL_TEXTURE0);
 	// 绘制网格
 	glBindVertexArray(VAO);
 	glDrawElements(drawMode, (GLsizei)indices.size(), GL_UNSIGNED_INT, 0);

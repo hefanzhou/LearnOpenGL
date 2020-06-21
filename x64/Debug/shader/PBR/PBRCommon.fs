@@ -3,13 +3,23 @@ out vec4 FragColor;
 in vec2 TexCoords;
 in vec3 WorldPos;
 in vec3 Normal;
+
 uniform vec3 camPos;
 
 uniform vec3  albedo;
 uniform float metallic;
 uniform float roughness;
 uniform float ao;
+
+uniform sampler2D albedoTexture;
+uniform sampler2D metallicTexture;
+uniform sampler2D roughnessTexture;
+uniform sampler2D normalTexture;
+
 uniform samplerCube irradianceMap;
+uniform samplerCube prefilterMap;
+uniform sampler2D   brdfLUT;
+
 uniform vec3 lightPositions[4];
 uniform vec3 lightColors[4];
 const float PI = 3.14159265359;
@@ -65,6 +75,8 @@ void main()
     vec3 V = normalize(camPos - WorldPos);
 	vec3 F0 = vec3(0.04); 
     vec3 Lo = vec3(0.0);
+    vec3 R = reflect(-V, N);
+	F0 = mix(F0, albedo, metallic);
     
 	for(int i = 0; i < 4; ++i) 
 	{
@@ -74,10 +86,9 @@ void main()
 	    float distance    = length(lightPositions[i] - WorldPos);
 	    float attenuation = 1.0 / (distance * distance);
 	    vec3 radiance     = lightColors[i] * attenuation; 
+		vec3 F  = fresnelSchlickRoughness(max(dot(H, V), 0.0), F0, roughness);
 
 	    
-		F0      = mix(F0, albedo, metallic);
-		vec3 F  = fresnelSchlickRoughness(max(dot(H, V), 0.0), F0, roughness);
 
 		float NDF = DistributionGGX(N, H, roughness);       
 		float G   = GeometrySmith(N, V, L, roughness);  
@@ -94,15 +105,22 @@ void main()
 		float NdotL = max(dot(N, L), 0.0);
     	Lo += (kD * albedo / PI + specular) * radiance * NdotL;
 	}
-
-	vec3 kS = fresnelSchlickRoughness(max(dot(N, V), 0.0), F0, roughness); 
+	vec3 F = fresnelSchlickRoughness(max(dot(N, V), 0.0), F0, roughness);
+	vec3 kS = F;
 	vec3 kD = 1.0 - kS;
+	kD *= 1.0 - metallic;     
+
 	vec3 irradiance = texture(irradianceMap, N).rgb;
 	vec3 diffuse    = irradiance * albedo;
-	vec3 ambient    = (kD * diffuse) * ao; 
+
+	const float MAX_REFLECTION_LOD = 4.0;
+	vec3 prefilteredColor = textureLod(prefilterMap, R,  roughness*MAX_REFLECTION_LOD).rgb;   
+	vec2 envBRDF  = texture(brdfLUT, vec2(max(dot(N, V), 0.0), roughness)).rg;
+	vec3 specular = prefilteredColor * (F * envBRDF.x + envBRDF.y);
+	vec3 ambient = (kD * diffuse + specular) * ao; 
 
 	vec3 color   = ambient + Lo;  
-
+	
 	color = color / (color + vec3(1.0));
 	color = pow(color, vec3(1.0/2.2)); 
 	

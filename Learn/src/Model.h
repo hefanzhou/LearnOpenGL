@@ -12,7 +12,7 @@ public:
 	{
 		loadModel(path);
 	}
-	void Draw(Shader shader);
+	void Draw(Shader shader, bool useMeshTexture = true);
 
 	/*  模型数据  */
 	vector<Mesh> meshes;
